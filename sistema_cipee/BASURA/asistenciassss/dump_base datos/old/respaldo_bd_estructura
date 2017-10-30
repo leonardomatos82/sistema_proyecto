@@ -1,0 +1,948 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Started on 2008-01-09 09:18:46 VET
+
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = off;
+SET check_function_bodies = false;
+SET client_min_messages = warning;
+SET escape_string_warning = off;
+
+--
+-- TOC entry 1735 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: SCHEMA public; Type: COMMENT; Schema: -; Owner: postgres
+--
+
+COMMENT ON SCHEMA public IS 'Standard public schema';
+
+
+SET search_path = public, pg_catalog;
+
+SET default_tablespace = '';
+
+SET default_with_oids = false;
+
+--
+-- TOC entry 1329 (class 1259 OID 16386)
+-- Dependencies: 1709 5
+-- Name: acceso; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE acceso (
+    "login" character varying(30) NOT NULL,
+    clave character varying(30) NOT NULL,
+    tipo character varying(15) NOT NULL,
+    id_acceso integer DEFAULT nextval(('public.acceso_id_acceso_seq'::text)::regclass) NOT NULL,
+    nomb_usuario character varying(50)
+);
+
+
+ALTER TABLE public.acceso OWNER TO leonardo;
+
+--
+-- TOC entry 1330 (class 1259 OID 16389)
+-- Dependencies: 5
+-- Name: acceso_id_acceso_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE acceso_id_acceso_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.acceso_id_acceso_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1359 (class 1259 OID 16715)
+-- Dependencies: 5
+-- Name: acceso_id_acceso_solicitud_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE acceso_id_acceso_solicitud_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.acceso_id_acceso_solicitud_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1358 (class 1259 OID 16712)
+-- Dependencies: 1722 5
+-- Name: acceso_solicitud; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE acceso_solicitud (
+    "login" character varying(30) NOT NULL,
+    clave character varying(30) NOT NULL,
+    cedula character varying(30),
+    nombre character varying(150),
+    unidad character varying(150) NOT NULL,
+    id_acceso_solicitud integer DEFAULT nextval(('public.acceso_id_acceso_solicitud_seq'::text)::regclass) NOT NULL
+);
+
+
+ALTER TABLE public.acceso_solicitud OWNER TO leonardo;
+
+--
+-- TOC entry 1361 (class 1259 OID 16730)
+-- Dependencies: 1723 5
+-- Name: asignacion_caja_chica; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE asignacion_caja_chica (
+    fecha date,
+    ncheque character varying(15) NOT NULL,
+    monto character varying(30) NOT NULL,
+    descripcion character varying(150) NOT NULL,
+    estado character varying(30) NOT NULL,
+    id_asignacion_caja_chica integer DEFAULT nextval(('public.asignacion_caja_chica_id_asignacion_caja_chica_seq'::text)::regclass) NOT NULL,
+    disponible character varying(30)
+);
+
+
+ALTER TABLE public.asignacion_caja_chica OWNER TO postgres;
+
+--
+-- TOC entry 1360 (class 1259 OID 16728)
+-- Dependencies: 5
+-- Name: asignacion_caja_chica_id_asignacion_caja_chica_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE asignacion_caja_chica_id_asignacion_caja_chica_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.asignacion_caja_chica_id_asignacion_caja_chica_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1362 (class 1259 OID 24920)
+-- Dependencies: 1724 5
+-- Name: caja_chica; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE caja_chica (
+    beneficiario character varying(80) NOT NULL,
+    cedula_rif character varying(30),
+    nfactura character varying(30),
+    monto_factura character varying(30),
+    concepto character varying(1500) NOT NULL,
+    programa character varying(150) NOT NULL,
+    id_caja_chica integer DEFAULT nextval(('public.caja_chica_id_caja_chica_seq'::text)::regclass) NOT NULL,
+    estado character varying(20),
+    motivo character varying(1500),
+    fecha_a date,
+    fecha character varying(15),
+    id_asignacion_caja_chica character varying(10)
+);
+
+
+ALTER TABLE public.caja_chica OWNER TO leonardo;
+
+--
+-- TOC entry 1364 (class 1259 OID 24929)
+-- Dependencies: 5
+-- Name: caja_chica_id_caja_chica_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE caja_chica_id_caja_chica_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.caja_chica_id_caja_chica_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1331 (class 1259 OID 16391)
+-- Dependencies: 1710 5
+-- Name: cheque; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE cheque (
+    fecha date NOT NULL,
+    ncheque character varying(15) NOT NULL,
+    monto_cheque character varying(30),
+    beneficiario character varying(80) NOT NULL,
+    concepto character varying(1500) NOT NULL,
+    programa character varying(150) NOT NULL,
+    cod_contable character varying(20) NOT NULL,
+    id_cheque integer DEFAULT nextval(('public.cheque_id_cheque_seq'::text)::regclass) NOT NULL,
+    estado character varying(20),
+    motivo character varying(1500),
+    fecha_a date,
+    cedula_rif character varying(30),
+    tipo_f character varying(30),
+    estado2 character varying(35)
+);
+
+
+ALTER TABLE public.cheque OWNER TO leonardo;
+
+--
+-- TOC entry 1332 (class 1259 OID 16397)
+-- Dependencies: 5
+-- Name: cheque_id_cheque_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE cheque_id_cheque_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.cheque_id_cheque_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1333 (class 1259 OID 16399)
+-- Dependencies: 1711 5
+-- Name: configuracion; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE configuracion (
+    coordinador_sede character varying(90) NOT NULL,
+    coordinador_adm character varying(90) NOT NULL,
+    administrador character varying(90) NOT NULL,
+    cuenta character varying(90) NOT NULL,
+    iva real,
+    isrl real,
+    id_configuracion integer DEFAULT nextval(('public.configuracion_id_configuracion_seq'::text)::regclass) NOT NULL,
+    sede character varying(90),
+    rif character varying(15),
+    comienzo_anio date,
+    custodio_chica character varying(60),
+    cargo1 character varying(30),
+    cargo2 character varying(30),
+    cargo3 character varying(30)
+);
+
+
+ALTER TABLE public.configuracion OWNER TO leonardo;
+
+--
+-- TOC entry 1334 (class 1259 OID 16402)
+-- Dependencies: 5
+-- Name: configuracion_id_configuracion_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE configuracion_id_configuracion_seq
+    START WITH 2
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.configuracion_id_configuracion_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1367 (class 1259 OID 49527)
+-- Dependencies: 1726 5
+-- Name: departamento; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE departamento (
+    nombre_departamento character varying(150) NOT NULL,
+    id_departamento integer DEFAULT nextval(('public.departamento_id_departamento_seq'::text)::regclass) NOT NULL,
+    responsable character varying(150)
+);
+
+
+ALTER TABLE public.departamento OWNER TO leonardo;
+
+--
+-- TOC entry 1372 (class 1259 OID 49541)
+-- Dependencies: 5
+-- Name: departamento_id_departamento_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE departamento_id_departamento_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.departamento_id_departamento_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1369 (class 1259 OID 49533)
+-- Dependencies: 1728 5
+-- Name: despacho; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE despacho (
+    fecha date NOT NULL,
+    nombre_entrega character varying(120) NOT NULL,
+    id_departamento integer NOT NULL,
+    id_despacho integer DEFAULT nextval(('public.despacho_id_despacho_seq'::text)::regclass) NOT NULL,
+    estado character varying(30)
+);
+
+
+ALTER TABLE public.despacho OWNER TO leonardo;
+
+--
+-- TOC entry 1373 (class 1259 OID 49543)
+-- Dependencies: 5
+-- Name: despacho_id_despacho_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE despacho_id_despacho_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.despacho_id_despacho_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1370 (class 1259 OID 49536)
+-- Dependencies: 1729 5
+-- Name: detalle_despacho; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE detalle_despacho (
+    id_despacho integer NOT NULL,
+    id_departamento integer NOT NULL,
+    id_material integer NOT NULL,
+    presentacion character varying(60) NOT NULL,
+    cantidad integer,
+    estado character varying(10),
+    id_detalle_despacho integer DEFAULT nextval(('public.detalle_id_detalle_despacho_seq'::text)::regclass) NOT NULL
+);
+
+
+ALTER TABLE public.detalle_despacho OWNER TO leonardo;
+
+--
+-- TOC entry 1374 (class 1259 OID 49545)
+-- Dependencies: 5
+-- Name: detalle_id_detalle_despacho_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE detalle_id_detalle_despacho_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.detalle_id_detalle_despacho_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1377 (class 1259 OID 106945)
+-- Dependencies: 1731 5
+-- Name: detalle_ordencs; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE detalle_ordencs (
+    id_detalle_ordencs integer DEFAULT nextval(('public.detalle_ordencs_id_detalle_ordencs_seq'::text)::regclass) NOT NULL,
+    id_orden integer NOT NULL,
+    cod_orden character varying(20),
+    cantidad integer,
+    preciou character varying(30),
+    total character varying(30),
+    cod_partida character varying(30) NOT NULL,
+    presentacion character varying(30),
+    estado character varying(30)
+);
+
+
+ALTER TABLE public.detalle_ordencs OWNER TO leonardo;
+
+--
+-- TOC entry 1378 (class 1259 OID 106948)
+-- Dependencies: 5
+-- Name: detalle_ordencs_id_detalle_ordencs; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE detalle_ordencs_id_detalle_ordencs
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.detalle_ordencs_id_detalle_ordencs OWNER TO leonardo;
+
+--
+-- TOC entry 1363 (class 1259 OID 24926)
+-- Dependencies: 1725 5
+-- Name: distribucion_caja_chica; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE distribucion_caja_chica (
+    nfactura character varying(15) NOT NULL,
+    cod_partida character varying(60) NOT NULL,
+    monto_factura character varying(30),
+    programa character varying(150) NOT NULL,
+    id_distribucion_caja_chica integer DEFAULT nextval(('public.distribucion_caja_chica_id_distribucion_caja_chica_seq'::text)::regclass) NOT NULL,
+    estado character varying(25),
+    fecha character varying(15),
+    id_asignacion_caja_chica character varying(10),
+    id_caja_chica integer
+);
+
+
+ALTER TABLE public.distribucion_caja_chica OWNER TO leonardo;
+
+--
+-- TOC entry 1365 (class 1259 OID 24931)
+-- Dependencies: 5
+-- Name: distribucion_caja_chica_id_distribucion_caja_chica_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE distribucion_caja_chica_id_distribucion_caja_chica_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.distribucion_caja_chica_id_distribucion_caja_chica_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1335 (class 1259 OID 16404)
+-- Dependencies: 1712 5
+-- Name: distribucion_cheque; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE distribucion_cheque (
+    fecha date NOT NULL,
+    ncheque character varying(15) NOT NULL,
+    cod_partida character varying(60) NOT NULL,
+    monto character varying(30),
+    programa character varying(150) NOT NULL,
+    cod_contable character varying(20) NOT NULL,
+    id_distribucion integer DEFAULT nextval(('public.distribucion_cheque_id_distribucion_seq'::text)::regclass) NOT NULL,
+    estado character varying(25),
+    tipo_f character varying(30)
+);
+
+
+ALTER TABLE public.distribucion_cheque OWNER TO leonardo;
+
+--
+-- TOC entry 1336 (class 1259 OID 16407)
+-- Dependencies: 5
+-- Name: distribucion_cheque_id_distribucion_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE distribucion_cheque_id_distribucion_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.distribucion_cheque_id_distribucion_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1337 (class 1259 OID 16409)
+-- Dependencies: 1713 5
+-- Name: ingresos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE ingresos (
+    fecha date NOT NULL,
+    codigo character varying(15),
+    beneficiario character varying(120) NOT NULL,
+    concepto character varying(1500) NOT NULL,
+    monto character varying(10),
+    id_ingresos integer DEFAULT nextval(('public.ingresos_id_ingresos_seq'::text)::regclass) NOT NULL,
+    tipo_f character varying(30)
+);
+
+
+ALTER TABLE public.ingresos OWNER TO postgres;
+
+--
+-- TOC entry 1338 (class 1259 OID 16415)
+-- Dependencies: 5
+-- Name: ingresos_id_ingresos_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE ingresos_id_ingresos_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ingresos_id_ingresos_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1368 (class 1259 OID 49530)
+-- Dependencies: 1727 5
+-- Name: material; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE material (
+    cod_partida character varying(60),
+    descripcion character varying(120) NOT NULL,
+    presentacion character varying(60) NOT NULL,
+    existencia integer,
+    estado character varying(10),
+    id_material integer DEFAULT nextval(('public.material_id_material_seq'::text)::regclass) NOT NULL
+);
+
+
+ALTER TABLE public.material OWNER TO leonardo;
+
+--
+-- TOC entry 1371 (class 1259 OID 49539)
+-- Dependencies: 5
+-- Name: material_id_material_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE material_id_material_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.material_id_material_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1339 (class 1259 OID 16417)
+-- Dependencies: 5
+-- Name: numero_id_numero_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE numero_id_numero_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.numero_id_numero_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1353 (class 1259 OID 16463)
+-- Dependencies: 5
+-- Name: oficio; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE oficio (
+    id_oficio integer NOT NULL,
+    para character varying(100) NOT NULL,
+    dest character varying(100) NOT NULL,
+    de character varying(100) NOT NULL,
+    rem character varying(100) NOT NULL,
+    pie character varying(255) NOT NULL
+);
+
+
+ALTER TABLE public.oficio OWNER TO postgres;
+
+--
+-- TOC entry 1375 (class 1259 OID 106937)
+-- Dependencies: 1730 5
+-- Name: ordencs; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE ordencs (
+    id_ordencs integer DEFAULT nextval(('public.ordencs_id_ordencs_seq'::text)::regclass) NOT NULL,
+    fecha date NOT NULL,
+    tipo character varying(25) NOT NULL,
+    proveedor character varying(90) NOT NULL,
+    cedula_rif character varying(30),
+    ejecutora character varying(150) NOT NULL,
+    programa character varying(150) NOT NULL,
+    cod_orden character varying(20),
+    subtotal character varying(30),
+    iva character varying(30),
+    total character varying(30),
+    observaciones character varying(1500) NOT NULL,
+    estado character varying(30)
+);
+
+
+ALTER TABLE public.ordencs OWNER TO leonardo;
+
+--
+-- TOC entry 1376 (class 1259 OID 106943)
+-- Dependencies: 5
+-- Name: ordencs_id_ordencs_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE ordencs_id_ordencs_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.ordencs_id_ordencs_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1340 (class 1259 OID 16419)
+-- Dependencies: 1714 5
+-- Name: p_principal; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE p_principal (
+    codigo character varying(30) NOT NULL,
+    descripcion character varying(150) NOT NULL,
+    monto_asig real,
+    monto_ejec real,
+    id_p_principal integer DEFAULT nextval(('public.p_principal_id_p_principal_seq'::text)::regclass) NOT NULL
+);
+
+
+ALTER TABLE public.p_principal OWNER TO leonardo;
+
+--
+-- TOC entry 1341 (class 1259 OID 16422)
+-- Dependencies: 5
+-- Name: p_principal_id_p_principal_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE p_principal_id_p_principal_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.p_principal_id_p_principal_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1342 (class 1259 OID 16424)
+-- Dependencies: 1715 5
+-- Name: p_secundaria; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE p_secundaria (
+    codigo_s character varying(30) NOT NULL,
+    codigo_p character varying(30) NOT NULL,
+    descripcion character varying(150) NOT NULL,
+    monto_asig real,
+    monto_ejec real,
+    id_p_secundaria integer DEFAULT nextval(('public.p_secundaria_id_p_secundaria_seq'::text)::regclass) NOT NULL
+);
+
+
+ALTER TABLE public.p_secundaria OWNER TO leonardo;
+
+--
+-- TOC entry 1343 (class 1259 OID 16427)
+-- Dependencies: 5
+-- Name: p_secundaria_id_p_secundaria_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE p_secundaria_id_p_secundaria_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.p_secundaria_id_p_secundaria_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1344 (class 1259 OID 16429)
+-- Dependencies: 1716 5
+-- Name: p_terciaria; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE p_terciaria (
+    codigo_t character varying(30) NOT NULL,
+    descripcion character varying(150) NOT NULL,
+    asig_anual character varying(30),
+    asig_mensual character varying(30),
+    id_p_terciaria integer DEFAULT nextval(('public.p_terciaria_id_p_terciaria_seq'::text)::regclass) NOT NULL
+);
+
+
+ALTER TABLE public.p_terciaria OWNER TO leonardo;
+
+--
+-- TOC entry 1345 (class 1259 OID 16432)
+-- Dependencies: 5
+-- Name: p_terciaria_id_p_terciaria_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE p_terciaria_id_p_terciaria_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.p_terciaria_id_p_terciaria_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1346 (class 1259 OID 16434)
+-- Dependencies: 1717 5
+-- Name: retencion_isrl; Type: TABLE; Schema: public; Owner: leonardo; Tablespace: 
+--
+
+CREATE TABLE retencion_isrl (
+    fecha date NOT NULL,
+    sujeto character varying(80) NOT NULL,
+    cedula_rif character varying(30) NOT NULL,
+    comprobante character varying(15) NOT NULL,
+    ncheque character varying(20),
+    tipo_transaccion character varying(500),
+    monto_total character varying(30),
+    pret character varying(10),
+    monto_retenido character varying(30),
+    estado character varying(20),
+    id_retencion_isrl integer DEFAULT nextval(('public.retencion_isrl_id_retencion_isrl_seq'::text)::regclass) NOT NULL
+);
+
+
+ALTER TABLE public.retencion_isrl OWNER TO leonardo;
+
+--
+-- TOC entry 1347 (class 1259 OID 16440)
+-- Dependencies: 5
+-- Name: retencion_isrl_id_retencion_isrl_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE retencion_isrl_id_retencion_isrl_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.retencion_isrl_id_retencion_isrl_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1348 (class 1259 OID 16442)
+-- Dependencies: 1718 5
+-- Name: retencion_iva; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE retencion_iva (
+    fecha date NOT NULL,
+    sujeto character varying(80) NOT NULL,
+    cedula_rif character varying(30) NOT NULL,
+    comprobante character varying(15) NOT NULL,
+    fecha_fact character varying(20) NOT NULL,
+    nfactura character varying(20),
+    ncontrol character varying(20),
+    ncheque character varying(20),
+    tipo_transaccion character varying(500),
+    monto_total character varying(30),
+    monto_scf character varying(30),
+    monto_base character varying(30),
+    iva character varying(30),
+    monto_retenido character varying(30),
+    estado character varying(20),
+    id_retencion_iva integer DEFAULT nextval(('public.retencion_iva_id_retencion_iva_seq'::text)::regclass) NOT NULL,
+    piva character varying(10),
+    pret character varying(10)
+);
+
+
+ALTER TABLE public.retencion_iva OWNER TO postgres;
+
+--
+-- TOC entry 1349 (class 1259 OID 16448)
+-- Dependencies: 5
+-- Name: retencion_iva_id_retencion_iva_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE retencion_iva_id_retencion_iva_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.retencion_iva_id_retencion_iva_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1354 (class 1259 OID 16468)
+-- Dependencies: 1720 5
+-- Name: tabla; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE tabla (
+    tipo character varying(30) NOT NULL,
+    desayuno numeric NOT NULL,
+    almuerzo numeric NOT NULL,
+    cena numeric NOT NULL,
+    alojamiento numeric NOT NULL,
+    taxi numeric(11,0) NOT NULL,
+    transporte numeric(11,0) NOT NULL,
+    tasa numeric(11,0) NOT NULL,
+    autobus numeric(11,0) NOT NULL,
+    vehiculo numeric(11,0) NOT NULL,
+    id_tabla integer DEFAULT nextval(('public.tabla_id_tabla_seq'::text)::regclass) NOT NULL
+);
+
+
+ALTER TABLE public.tabla OWNER TO postgres;
+
+--
+-- TOC entry 1355 (class 1259 OID 16474)
+-- Dependencies: 5
+-- Name: tabla_id_tabla_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE tabla_id_tabla_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.tabla_id_tabla_seq OWNER TO postgres;
+
+--
+-- TOC entry 1366 (class 1259 OID 33145)
+-- Dependencies: 5
+-- Name: tareas; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE tareas (
+    fecha date,
+    operacion text,
+    usuario text
+);
+
+
+ALTER TABLE public.tareas OWNER TO postgres;
+
+--
+-- TOC entry 1350 (class 1259 OID 16450)
+-- Dependencies: 5
+-- Name: transaccion; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE transaccion (
+    fecha date,
+    hora time with time zone,
+    operacion text,
+    "login" text
+);
+
+
+ALTER TABLE public.transaccion OWNER TO postgres;
+
+--
+-- TOC entry 1351 (class 1259 OID 16455)
+-- Dependencies: 1719 5
+-- Name: usuario; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE usuario (
+    cedula_rif character varying(30),
+    nombre character varying(150),
+    direccion character varying(500),
+    telf character varying(15),
+    id_usuario integer DEFAULT nextval(('public.usuario_id_usuario_seq'::text)::regclass) NOT NULL,
+    tipo character varying(30)
+);
+
+
+ALTER TABLE public.usuario OWNER TO postgres;
+
+--
+-- TOC entry 1352 (class 1259 OID 16461)
+-- Dependencies: 5
+-- Name: usuario_id_usuario_seq; Type: SEQUENCE; Schema: public; Owner: leonardo
+--
+
+CREATE SEQUENCE usuario_id_usuario_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.usuario_id_usuario_seq OWNER TO leonardo;
+
+--
+-- TOC entry 1357 (class 1259 OID 16491)
+-- Dependencies: 1721 5
+-- Name: viaticos; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE viaticos (
+    id_tipo integer NOT NULL,
+    cedula character varying(10) NOT NULL,
+    motivo character varying(500) NOT NULL,
+    fecha_ida character varying(15) NOT NULL,
+    fecha_ret character varying(15) NOT NULL,
+    dias integer NOT NULL,
+    subtotal numeric NOT NULL,
+    taxi numeric NOT NULL,
+    transporte numeric NOT NULL,
+    tasa numeric NOT NULL,
+    otra1 numeric NOT NULL,
+    otra2 numeric NOT NULL,
+    observaciones character varying(1500) NOT NULL,
+    total numeric NOT NULL,
+    tiempo1 character varying(15) NOT NULL,
+    tiempo2 character varying(15) NOT NULL,
+    des character varying(15) NOT NULL,
+    alm character varying(15) NOT NULL,
+    cen character varying(15) NOT NULL,
+    alo character varying(15) NOT NULL,
+    id_viatico integer DEFAULT nextval(('public.viaticos_id_viatico_seq'::text)::regclass) NOT NULL,
+    departamento character varying(80),
+    estado character varying(30)
+);
+
+
+ALTER TABLE public.viaticos OWNER TO postgres;
+
+--
+-- TOC entry 1356 (class 1259 OID 16487)
+-- Dependencies: 5
+-- Name: viaticos_id_viatico_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE viaticos_id_viatico_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.viaticos_id_viatico_seq OWNER TO postgres;
+
+--
+-- TOC entry 1736 (class 0 OID 0)
+-- Dependencies: 5
+-- Name: public; Type: ACL; Schema: -; Owner: postgres
+--
+
+REVOKE ALL ON SCHEMA public FROM PUBLIC;
+REVOKE ALL ON SCHEMA public FROM postgres;
+GRANT ALL ON SCHEMA public TO postgres;
+GRANT ALL ON SCHEMA public TO PUBLIC;
+
+
+-- Completed on 2008-01-09 09:18:46 VET
+
+--
+-- PostgreSQL database dump complete
+--
+

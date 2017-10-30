@@ -1,0 +1,7 @@
+<html>
+<body onLoad="document.forms.focoproba.proba.focus()">
+<form name="focoproba" action="alert.htm" method="post">
+<textarea name="proba" cols="40" rows="6"></textarea>
+</form>
+</body>
+</html>

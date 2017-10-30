@@ -1,0 +1,169 @@
+<?php 
+include("../config.php");
+
+
+
+echo "<font size=1>/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</font><br>";  
+echo "<font size=1>//		CODIGO PARA GENERAR RESPALDO DE LA ESTRUCTURA DE LA BASE DE DATOS Y LA INFORMACION ///</font><br>"; 
+echo "<font size=1>//		ARCHIVO COMPATIBLE CON POSTGRESQL 8.3															 ////</font><br>"; 
+echo "<font size=1>//		COORDINACION DE INFORMATICA - BARINAS 		 														///</font><br>"; 
+echo "<font size=1>//		AUTOR: LEONARDO MATOS   																			 ////</font><br>"; 
+echo "<font size=1>//		ARCHIVO/GUARDAR COMO/ARCHIVO.TXT (GUARDE CON LA EXTENSION .TXT)						 ////</font><br>"; 
+
+echo "<font size=1>///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////</font><br>"; 
+
+//GENERANDO EL SCRPT DE LA ESTRUCTURA
+
+echo "<font size=1>CREATE TABLE acceso (
+    login character varying(30) NOT NULL,
+    clave character varying(30) NOT NULL,
+    tipo character varying(15) NOT NULL,
+    id_acceso integer DEFAULT nextval(('public.acceso_id_acceso_seq'::text)::regclass) NOT NULL,
+    nomb_usuario character varying(50)
+);</font><br>";      
+echo "<font size=1>CREATE SEQUENCE acceso_id_acceso_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;</font><br>";  
+echo "<font size=1>CREATE TABLE asistencia (
+    id_asistencia integer DEFAULT nextval(('public.asistencia_id_asistencia_seq'::text)::regclass) NOT NULL,
+    fecha date NOT NULL,
+    id_personal character varying(10),
+    cedula character varying(30),
+    entra1 character varying(10),
+    sale1 character varying(10),
+    entra2 character varying(10),
+    sale2 character varying(10),
+    observacion character varying(1500),
+    id_dpto character varying(10)
+);</font><br>"; 
+
+echo "<font size=1>CREATE SEQUENCE asistencia_id_asistencia_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;</font><br>"; 
+
+echo "<font size=1>CREATE TABLE departamento (
+    nombre_departamento character varying(150) NOT NULL,
+    id_departamento integer DEFAULT nextval(('public.departamento_id_departamento_seq'::text)::regclass) NOT NULL,
+    responsable character varying(150)
+);</font><br>"; 
+
+echo "<font size=1>CREATE SEQUENCE departamento_id_departamento_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;</font><br>"; 
+echo "<font size=1>CREATE TABLE horario (
+    id_horario integer DEFAULT nextval(('public.horario_id_horario_seq'::text)::regclass) NOT NULL,
+    entra1 character varying(10),
+    sale1 character varying(10),
+    entra2 character varying(10),
+    sale2 character varying(10),
+    entra3 character varying(10),
+    sale3 character varying(10),
+    entra4 character varying(10),
+    sale4 character varying(10),
+    m1 character varying(5),
+    m2 character varying(5),
+    m3 character varying(5),
+    m4 character varying(5),
+    m5 character varying(5),
+    m6 character varying(5),
+    m7 character varying(5),
+    m8 character varying(5)
+);
+</font><br>"; 
+
+echo "<font size=1>CREATE SEQUENCE horario_id_horario_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;</font><br>"; 
+
+echo "<font size=1>CREATE TABLE personal (
+    id_personal integer DEFAULT nextval(('public.personal_id_personal_seq'::text)::regclass) NOT NULL,
+    cedula character varying(30),
+    nombre character varying(180) NOT NULL,
+    cargo character varying(180),
+    tipo character varying(50),
+    id_dpto character varying(10),
+    estado character varying(20)
+);
+</font><br>"; 
+
+echo "<font size=1>CREATE SEQUENCE personal_id_personal_seq
+    INCREMENT BY 1
+    NO MAXVALUE
+    NO MINVALUE
+    CACHE 1;</font><br>"; 
+
+echo "<font size=1>CREATE TABLE transaccion (
+    fecha date,
+    hora time with time zone,
+    operacion text,
+    login text
+);
+</font><br>"; 
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////
+//GENERANDO EL SCRIPT DE LOS INSERT
+$result = pg_query($con,"SELECT * 
+ FROM asistencia
+  ");
+$result2 = pg_query($con,"SELECT * 
+ FROM departamento
+  ");
+  $result3 = pg_query($con,"SELECT * 
+ FROM horario
+  ");
+  $result4 = pg_query($con,"SELECT * 
+ FROM personal
+  ");
+    $result5 = pg_query($con,"SELECT * 
+ FROM acceso
+  ");
+   
+while ($row = pg_fetch_row($result)){
+echo "<font size=1>INSERT INTO asistencia(id_asistencia, fecha, id_personal, cedula, entra1, sale1, entra2, 
+            sale2, observacion, id_dpto)
+            VALUES ($row[0],'$row[1]','$row[2]','$row[3]','$row[4]','$row[5]','$row[6]','$row[7]',
+    '$row[8]','$row[9]'); </font><br>";      
+}
+$row="";
+while ($row = pg_fetch_row($result2)){
+echo "<font size=1>INSERT INTO departamento(
+            nombre_departamento, id_departamento, responsable)
+            VALUES ('$row[0]',$row[1],'$row[2]'); </font><br>";      
+}
+$row="";
+while ($row = pg_fetch_row($result3)){
+echo "<font size=1>INSERT INTO horario(
+            id_horario, entra1, sale1, entra2, sale2, entra3, sale3, entra4, 
+            sale4)VALUES ($row[0],'$row[1]','$row[2]','$row[3]','$row[4]','$row[5]','$row[6]','$row[7]',
+    '$row[8]'); </font><br>";      
+}
+$row="";
+while ($row = pg_fetch_row($result4)){
+echo "<font size=1>INSERT INTO personal(
+            id_personal, cedula, nombre, cargo, tipo, id_dpto, estado)
+            VALUES ($row[0],'$row[1]','$row[2]','$row[3]','$row[4]','$row[5]','$row[6]'); </font><br>";      
+}
+$row="";
+while ($row = pg_fetch_row($result5)){
+echo "<font size=1>INSERT INTO acceso(
+            login, clave, tipo, id_acceso, nomb_usuario)
+            VALUES ('$row[0]','$row[1]','$row[2]',$row[3],'$row[4]'); </font><br>";      
+}
+
+
+
+?>
+
+ 

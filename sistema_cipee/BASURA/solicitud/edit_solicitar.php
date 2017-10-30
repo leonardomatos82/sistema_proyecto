@@ -1,0 +1,112 @@
+<?php
+ session_start();
+//include("../control/valida.php"); 
+include("../config.php");
+include("../tabla2.php");
+include("../utils.php");
+
+//include("../barra.php");
+
+
+if ($_GET[id]!="1"){ ?>
+<table width="766" border="0" align="center" bgcolor="#FFFFFF">
+<? }else{ $id='1'; ?>
+<table width="766" border="0" align="center" bgcolor="#FFFFFF">
+<? } ?>
+  <tr>
+    <td colspan="2">&nbsp;</td>
+    <td width="77">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="149">&nbsp;</td>
+    <td width="584">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="88"><p align="right">&nbsp;</p>
+        <p align="right">&nbsp;</p></td>
+
+          <?php
+
+$val='../../intranet/index.php';
+if($_POST[cedula]=="")
+		{
+		$val='solicitar.php?id='.$id;
+?>
+
+ <td><form style="width: 615px;" action="<? echo $val; ?>" method="post">
+      <p align="left"><br />
+  <?       
+	echo"<b>Mensaje: </b>".Numero_de_Cedula_Requerido."<br><br>";	
+    	}
+	  else 
+	   {
+ ?>
+ <td><form style="width: 615px;" action="<? echo $val; ?>" method="post">
+      <p align="left"><br />
+
+<?	  
+
+          $query2="select * from solicitud where cedula= '$_POST[cedula]' and estado='PENDIENTE'";
+       $result=pg_query($con,$query2);
+       $row=pg_fetch_array($result);
+	   $cedula=$_POST[cedula];
+       if ($_POST[cedula]==$row[cedula]) {
+         echo "Usted ya tiene una solicitud Pendiente";
+       }
+	    else 
+		{
+	   $query3="select * from trabajador where cedula= '$_POST[cedula]'";
+       $result3=pg_query($con,$query3);
+       $row3=pg_fetch_array($result3);
+	   $estado='PENDIENTE';
+           $fecha=date("d-m-Y");
+ if ($row3[codigo]!="") {
+	    $sql="INSERT INTO solicitud(codigo, cedula, nombre, fecha_solicitud,
+            estado) VALUES ('$row3[codigo]','$row3[cedula]','$row3[nombre]','$fecha','$estado')"; 
+       if (!pg_query($con,$sql)) { die('Error: ' . pg_result_error()); } 
+       
+       echo $row3[nombre]." , Su Solicitud Fue Recibida, Pronto enviaremos su requerimiento ante la Coordinación General de Talento Humano Caracas."; 
+       }else{
+echo "Cedula de Identidad no existe en nuestros registros, favor contactar personal de la Coordinación de Talento Humano.";
+}
+
+    
+        }
+////////////////////////////////////////////////////////////////////////
+$valor="-Operacion: Ingresar solicitud de Constancia -".$_POST[cedula];
+ registrarOperacion($con,$_SESSION['login'],$valor);      
+////////////////////////////////////////////////////////////////////////
+           
+        }
+ pg_close($con);
+?>
+      </p>
+      <p align="left">
+        <input name="submit2" type="submit" value="Volver" />
+      </p>
+    </form></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+
+</table>
+<?
+if ($_GET[id]!="1"){ ?>
+<table width="766" border="0" align="center" bgcolor="#FFFFFF">
+<? }else{ $id='1'; ?>
+<table width="750" border="0" align="center" bgcolor="#FFFFFF">
+<? } ?>
+  <?php
+include("../pie.php"); 
+ ?>
+

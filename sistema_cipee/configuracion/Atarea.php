@@ -1,0 +1,66 @@
+<?php
+include("../control/valida.php"); 
+include("../css.php");
+include("../config.php");
+//$resultado = pg_query($con,"SELECT * FROM usuario");
+ ?>
+  <script language="JavaScript">
+function acceptNum(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key <= 13 || (key >= 48 && key <= 57));
+}
+var nav4 = window.Event ? true : false;
+function acceptChar(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key < 48 || key > 57);
+}
+  </script>
+  
+
+<table width="760" border="0" align="center" bgcolor="#FFFFFF">
+  </tr>
+<td><a href="../menu.php"><img style="border: 0px solid ; width: 25px; height: 25px;" alt="Atras"
+ src="../imagenes/atras.png"></a></td>  
+  <tr>  
+  <tr>
+    <td colspan="2"><strong>Agregar sugerencia para mejorar el sistema </strong></td>
+    <td width="77">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="149">&nbsp;</td>
+    <td width="584"><em>Gustosamente atenderemos esta sugerencia:</em></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="88"><p align="right">&nbsp;</p>
+        <p align="right">&nbsp;</p></td>
+    <td><form style="width: 742px; height: 260px;" action="insert_tarea.php"  method="post">
+      <p>
+      
+        <table width="81%" border="0">
+         
+         
+          <tr> 
+            <td width="17%"><div align="left">Concepto</div></td>
+            <td width="83%"> <textarea name="concepto" cols="90" id="textarea2" value=""></textarea>
+              *</td>
+          </tr>
+         
+         
+         
+          <tr>
+            <td>&nbsp;</td>
+            <td><input value="Enviar Sugerencia" type="submit" name="submit2"></td>
+          </tr>
+        </table>
+      <p>&nbsp;</p>
+     
+      </p>
+    </form></td>
+
+<? include("../pie.php"); ?>
+
+  
+
+

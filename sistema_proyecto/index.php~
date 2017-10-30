@@ -1,0 +1,73 @@
+<?php 
+session_start();
+include("config.php");
+include("utils.php");
+include("tabla.php"); 
+//include("barra.php");
+
+?>
+ <td width=100% align="center">
+
+<script type="text/javascript">
+numImg = 0;
+imgs = ['imagenes/fotos/foto1.jpg','imagenes/fotos/foto2.jpg','imagenes/fotos/foto3.jpg','imagenes/fotos/foto4.jpg'];
+function cambiar() {
+  numImg++;
+  if (numImg==imgs.length) numImg=0;
+  document.getElementById('imagen').src = imgs[numImg];
+}
+</script> 
+
+<body onload="setInterval('cambiar()',18000)"> 
+
+<table width=80% border="0" align="<?echo $alight; ?>" bgcolor="<?echo $bgcolor; ?>">
+
+<tr>
+	<td width="300px" height="3px"><font  size="2">Bienvenido al Sistema de apoyo a PROYECTO Y PASANTIAS</font></td>
+</tr>
+<tr>
+
+</tr>
+<tr>
+	<td><font  size="2"><hr class="noscreen" /> <h3 align="center" class="style10" >INICIO DE SESION</h3></font></td>
+	
+	<td rowspan="20" ><div align="center"><img id="imagen" align="center"  src="imagenes/fotos/foto1.jpg" width="250" height="350"  border="0"> </td>
+</tr>
+<tr>
+	<td > <form name="form1" method="post" action="control/login.php">
+          <div align="justify">
+            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Usuario
+                      <input style="font-size:12pt;" name="login" type="text" size="10" maxlength="30" autocomplete="OFF"/>
+                      <br/>
+                      <br/>
+              &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Clave <strong>
+                <input style="font-size:12pt;" name="password" type="password" size="10" maxlength="30" autocomplete="OFF" />
+              </strong></p>
+            <p align="center">
+              <input style="font-size:12pt;" name="Enter" type="submit" id="Enter" value="Entrar" />
+            </p>
+            <p align="center"><img src="imagenes/security.png" alt="" width="90" height="90" /> </p>
+         
+          </div>
+        </form></td>
+	<td></td>
+</tr>
+<tr>
+		<td></td>
+	<td></td>
+</tr>
+
+<tr>
+	<td><hr class="noscreen" /><font  size="1">Generado por Coordinacion de TIT Barinas- Portuguesa.</h3></font></td>
+	<td></td>
+</tr>
+</TABLE> 
+
+
+
+
+
+<? include("pie2.php"); ?>
+
+
+

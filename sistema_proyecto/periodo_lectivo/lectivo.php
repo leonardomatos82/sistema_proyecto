@@ -1,0 +1,72 @@
+<?php 
+session_start();
+include("../control/valida.php"); 
+include("../config.php");
+include("../tabla2.php"); 
+include("../barra.php");
+?><head>
+  <script language="JavaScript">
+function acceptNum(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key <= 13 || (key >= 48 && key <= 57));
+}
+var nav4 = window.Event ? true : false;
+function acceptChar(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key < 48 || key > 57);
+}
+
+  </script>
+  
+</form>
+
+<table width="750" border="0" align="center" bgcolor="#FFFFFF">
+  <tr>
+    <td colspan="2"><strong>Escriba la Descripcion del periodo Lectivo</strong></td>
+    <td width="77">&nbsp;</td>
+  </tr>
+  <tr>
+    <td width="149">&nbsp;</td>
+    <td width="584"><em></em></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td height="88"><p align="right">&nbsp;</p>
+        <p align="right">&nbsp;</p></td>
+    <td><form id="form1" name="form1" method="post" action="insert_lectivo.php">
+      <table width="70%" height="146" border="0">
+        <tr>
+          <td width="40%"><div align="left">Periodo Lectivo:</div></td>
+          <td width="60%"> <input name="periodo"   type="text" value="<? echo date("Y").'-';?>">*&nbsp;</td>
+        </tr>
+              <tr>
+          <td width="40%"><div align="left">Fecha de Inicio:</div></td>
+          <td width="60%"> <input name="inicio"   type="text" value="<? echo date("Y").'-';?>">*&nbsp;</td>
+        </tr>
+              <tr>
+          <td width="40%"><div align="left">Fecha de Culminación:</div></td>
+          <td width="60%"> <input name="culminacion"   type="text" value="<? echo date("Y").'-';?>">*&nbsp;</td>
+        </tr>
+
+        <tr>
+          <td></td>
+          <td><input value="Agregar Periodo Lectivo" type="submit" name="submit">&nbsp;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>&nbsp;</td>
+        </tr>
+      </table>
+    </form></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td>* Campo requerido</td>
+    <td>&nbsp;</td>
+  </tr>
+</table>
+  <?php
+include("../pie.php"); 
+ ?>

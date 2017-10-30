@@ -1,0 +1,104 @@
+<?php
+
+//include("../control/valida.php"); 
+
+include("../config.php");
+include("../tabla.php"); 
+include("../barra.php");
+
+//include("../utils.php");
+$queryw="select * from interfaz";
+$resultw=pg_query($con,$queryw);
+$roww=pg_fetch_array($resultw);
+?>
+
+
+<table width="750" border="0" align="center" bgcolor="#FFFFFF">
+
+    <td colspan="2"><strong>Modificar Configuraci&oacute;n</strong></td>
+
+   
+
+  </tr>
+
+  <tr> 
+
+    <td width="60">&nbsp;</td>
+
+    <td width="709"><em>Modifique la configuraci&oacute;n del Sistema:</em></td>
+
+   
+
+  </tr>
+
+
+  <tr> 
+
+    <td>&nbsp;</td>
+
+    <td><form id="form1" name="form1" method="post" action="edit_conf.php">
+
+        <table width="98%" height="" border="0" cellpadding="2" cellspacing="0">
+
+        <tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+
+            <td height="23"><strong>FONDO: </strong></td>
+
+            <td><input  name="fondo" type="text"   value="<?php echo $roww['fondo'];?>" size="30" /></td>   
+            
+            <script>
+function ver(image){
+document.getElementById('image').innerHTML = "<img src='"+image+"'>" 
+}
+</script>
+
+   
+     
+
+
+          </tr>
+
+          <tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+
+            <td height="23"><strong>BANNER 1: </strong></td>
+
+            <td><input  name="banner1" type="text"   value="<?php echo $roww['banner'];?>" size="30" /></td>
+
+          </tr>
+
+          <tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+
+            <td height="23"><strong>BANNER 2:</strong></td>
+
+            <td><input  name="banner2" type="text"   value="<?php echo $roww['banner2'];?>" size="30" /></td>
+
+          </tr>
+           <tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+
+            <td height="23"><strong>MENU:</strong></td>
+
+            <td><input  name="menu" type="text"   value="<?php echo $roww['menu'];?>" size="30" /></td>
+
+          </tr>
+      <tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+      <tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+
+            <td height="23" colspan="2"><div align="center"> 
+
+                <input name="submit" type="submit" value="Modificar " />
+
+              </div></td>
+
+          </tr>
+
+          <tr bordercolor="#000000" bgcolor="#FFFFFF">
+
+            <td height="23" colspan="2">&nbsp;</td>
+
+          </tr>
+
+        </table>
+
+      </form>
+      </table>    
+      <? include("../pie.php"); ?>

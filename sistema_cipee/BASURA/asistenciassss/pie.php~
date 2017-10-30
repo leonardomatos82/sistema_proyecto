@@ -1,0 +1,12 @@
+ <tr>
+ <td>&nbsp;</td>
+<td>&nbsp;</td>
+ </tr>
+ <tr> 
+ <td>&nbsp;</td>
+ <td>&nbsp;</td>
+ </tr> 
+  <tr> 
+    <td colspan="<?echo $colspan; ?>"><div align="<? echo $alight; ?>"><img src="<?echo $imagen_barra; ?>" width="<?echo $with; ?>" height="<?echo $height_barra; ?>" /></div></td>
+  </tr>
+ 

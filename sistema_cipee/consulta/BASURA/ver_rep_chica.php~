@@ -1,0 +1,172 @@
+<?php
+include("../config.php");
+include("../utils.php");
+$query2="SELECT * FROM configuracion where id_configuracion='1'";
+$result2=pg_query($con,$query2);
+$row2=pg_fetch_array($result2);
+$cuenta_reg=0;
+$desde= $_GET['desde_year']."-".$_GET['desde_mes']."-".$_GET['desde_dia'];
+$hasta= $_GET['hasta_year']."-".$_GET['hasta_mes']."-".$_GET['hasta_dia'];
+
+$desde2= $_GET['desde_year']."-".$_GET['desde_mes']."-".$_GET['desde_dia'];
+$hasta2=$_GET['hasta_year']."-".$_GET['hasta_mes']."-".$_GET['hasta_dia'];
+include("../cheque/numero2.php"); 
+if ($_GET['tipo']=="FONDO MENSUAL")
+{
+$c=1;
+$condicion="FONDO MENSUAL";
+}else{
+if ($_GET['tipo']=="FONDO ESPECIAL")
+{
+$condicion="FONDO ESPECIAL";
+$c=1;
+}
+}
+$rc="select *  from asignacion_caja_chica 
+where estado='EN EJECUCION'";
+$qrc=pg_query($con,$rc);
+$rowss = pg_fetch_row($qrc)
+?>
+<script language="JavaScript">
+function acceptNum(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key <= 13 || (key >= 47 && key <= 57));
+}
+var nav4 = window.Event ? true : false;
+function acceptChar(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key < 48 || key > 57);
+}
+function textCounter(field, countfield, maxlimit) {
+if (field.value.length > maxlimit)
+field.value = field.value.substring(0, maxlimit);
+else 
+countfield.value = maxlimit - field.value.length;
+}
+
+  </script>
+ 
+<?php
+include("titulo_chica.php");
+ echo "<p align=right><font size=2 align=right><small style=width: 50px>Pagina: 1</font></p>";
+ $pag++;
+ 
+  
+$result = pg_query($con,$query="SELECT
+distribucion_caja_chica.fecha,p_terciaria.descripcion,
+distribucion_caja_chica.nfactura,distribucion_caja_chica.monto_factura,p_terciaria.CODIGO_T
+ from distribucion_caja_chica 
+ INNER JOIN p_terciaria on p_terciaria.id_p_terciaria=distribucion_caja_chica.cod_partida
+ WHERE ID_ASIGNACION_CAJA_CHICA=3
+ 
+ORDER BY p_terciaria.descripcion ASC
+");
+
+echo "<table align=center cellpadding=1 cellspacing=0 background-color: rgb(255, 255, 255); border =2; WIDTH=100% bgcolor=#FFFFFF >";
+
+ 
+echo "<tr>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>Nº</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>FECHA</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>DESCRIPCION</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>FACTURA</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>MONTO</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>FONDO</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>PARTIDA</b></font></td>";
+echo "</tr> ";
+echo "<tr>";
+$rowss[0]=cambiaf_a_normal($rowss[0]);
+$subtotal=$rowss[2];
+//$total=$subtotal;
+$rowss[2]=number_format($rowss[2],2);
+echo "<td <font size=2 align=left><small style=width: 50px><b>-</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>$rowss[0]</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>$rowss[3]. segun cheque .$rowss[1]</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>-</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>-</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>$rowss[2]</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>-</b></font></td>";
+
+echo "</tr> ";
+while ($row = pg_fetch_row($result)){
+if ($row[5]=='G-000000000'){ }else{
+echo "<tr> ";
+$row3=$row[3];
+$row[3]=number_format($row[3],2);
+
+$row[10]=cambiaf_a_normal($row[10]);
+$c++;
+echo "<td <font size=2 align=left><small style=width: 50px>$c</font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px>$row[0]</font></td>";
+echo "<td <font size=2 align=center><small style=width: 50px>$row[1]</font></td>";
+
+echo "<td <font size=2 align=left><small style=width: 50px>$row[2]</font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px>$row[3]</font></td>";
+$total=$total+$row[3];
+$subtotal=$subtotal-$row[3];
+$msubtotal=number_format($subtotal,2);
+echo "<td <font size=2 align=left><small style=width: 50px>$msubtotal</font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px>$row[4]</font></td>";
+echo "</tr> ";
+}}
+
+$mtotal=number_format($total,2);
+echo "<tr>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>-</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>-</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>-</b></font></td>";
+echo "<td <font size=2 align=left><small style=width: 50px><b>TOTAL:</b></font></td>";
+echo "<td <font size=2 align=right><small style=width: 50px><b>$mtotal</b></font></td>";
+echo "<td <font size=2 align=right><small style=width: 50px><b>$msubtotal</b></font></td>";
+echo "</tr> ";
+echo "</table>";
+?>
+<p>&nbsp;</p>
+<table width="830" border="0" align="center" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr bordercolor="#CCCCCC"> 
+    <td width="192"><strong><font size="2">ELABORADO POR</font></strong></td>
+    <td width="201"><strong><font size="2">REVISADO POR</font></strong></td>
+    <td width="273"><strong><font size="2">AUTORIZADO POR</font></strong></td>
+    <td width="164">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td><font size="2"><?php echo $row2['administrador'];?></font></td>
+    <td><font size="2"><?php echo $row2['coordinador_adm'];?></font></td>
+    <td><font size="2"><?php echo $row2['coordinador_sede'];?></font></td>
+    <td><strong>SELLO</strong></td>
+  </tr>
+      <tr> 
+       <td><font size="2"><?php echo $row2['cargo3'];?></font></td>
+    <td><font size="2"><?php echo $row2['cargo2'];?></font></td>
+    <td><font size="2"><?php echo $row2['cargo1'];?></font></td>  
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  <tr> 
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr></tr>
+</table>
+
+<table width="93%" border="0" align="left" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td><div align="left"><font face="CodabarMedium"> </strong><font size="2" face=CodabarMedium"><?php echo $_GET['desde_dia']."/".$_GET['desde_mes']."/".$_GET['desde_year'];?><?php echo $_GET['hasta_dia']."/".$_GET['hasta_mes']."/".$_GET['hasta_year'];?></font></font></div></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+ <p> <a href="../consulta/menu_consulta.php?>">Atras</a>&nbsp; </p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+

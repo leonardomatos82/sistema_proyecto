@@ -1,0 +1,304 @@
+<?php
+session_start();
+include("../config.php");
+include("../utils.php");
+$query2="SELECT * FROM autorizado";
+$result2=pg_query($con,$query2);
+$row2 = pg_fetch_row($result2);
+include("numero2.php"); 
+if ($_GET[num]==""){
+$query3="select count(id_solicitud) from solicitud";
+$result3=pg_query($con,$query3);
+$row3 = pg_fetch_row($result3);
+$_GET[num]="A".($row3[0]+1);
+}
+$_POST[num]=$_GET[num];
+$fecha=date("d-m-Y");
+$ano=date("Y");
+if ($_GET[id]!=""){
+$_POST[cedula]=$_GET[id];
+
+$sql="update solicitud set estado='PROCESADO',fecha_impresion='$fecha' where cedula='$_POST[cedula]'"; 
+if (!pg_query($con,$sql)) { die('Error: ' . pg_result_error()); } 
+
+}
+$condicion="";
+$cedula=$_POST[cedula];
+$codigo=$_POST[codigo];
+
+$t1="trabajador.cedula="."'$cedula'";
+$t2="trabajador.codigo="."'$codigo'";
+
+
+
+////////////////////////////////////////////
+if ($_POST[cedula]!="")
+{
+if ($condicion!="" )
+{
+   $condicion=$condicion." AND ";
+ }  
+ $condicion=$condicion.$t1;
+  }  
+if ($_POST[codigo]!=0)
+{
+if ($condicion!="" )
+{
+   $condicion=$condicion." AND ";
+ }  
+ $condicion=$condicion.$t2;
+  }  
+
+if  ($condicion==""){
+die();
+ }else{
+$result = pg_query($con,$query="SELECT *
+FROM
+TRABAJADOR
+where
+$condicion");
+}
+$row = pg_fetch_row($result);
+$row[10]= str_replace(".", "", $row[10]);
+$row[10] = str_replace(",", ".", $row[10]);
+$row[12]= str_replace(".", "", $row[12]);
+$row[12] = str_replace(",", ".", $row[12]);
+$row[13]= str_replace(".", "", $row[13]);
+$row[13] = str_replace(",", ".", $row[13]);
+$row[14]= str_replace(".", "", $row[14]);
+$row[14] = str_replace(",", ".", $row[14]);
+$row[18]= str_replace(".", "", $row[18]);
+$row[18] = str_replace(",", ".", $row[18]);
+
+$row[2]=number_format($row[2],0,'.', '.');
+$row[14]=number_format($row[14],2,'.', '.');
+$row[12]=number_format($row[12],2,'.', '');
+$row[13]=number_format($row[13],2,'.', '.');
+$row[18]=number_format($row[18],2,',', '.');
+$suma=$row[10]+$row[11]+$row[12]+$row[13]+$row[14]+$row[15]+$row[16]+$row[17];
+$row[18]=$suma;
+include("numero22.php");
+$row[10]=number_format($row[10],2,',', '.');
+$row[18]=number_format($row[18],2,',', '.');
+$suma=number_format($suma,2,',', '.');
+$valorcodigo=$row[0]."".$row[1]."".$row[2];
+?>
+
+<script language="JavaScript">
+function acceptNum(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key <= 13 || (key >= 47 && key <= 57));
+}
+var nav4 = window.Event ? true : false;
+function acceptChar(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key < 48 || key > 57);
+}
+function textCounter(field, countfield, maxlimit) {
+if (field.value.length > maxlimit)
+field.value = field.value.substring(0, maxlimit);
+else 
+countfield.value = maxlimit - field.value.length;
+}
+
+  </script>
+<BODY onload="window.print()"> 
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/> 
+<table align="center" width="750px" height="75px" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+  <tr> 
+    <td width="144" rowspan="5"><div align="center"><strong><font size="2" face="Times New Roman, Times, serif"><img src="../imagenes/ubv.jpg" width="75" height="75" /></font></strong></div></td>
+    <td height="0"><p align="right"><strong><font size="2">REPUBLICA BOLIVARIANA 
+        DE VENEZUELA</font></strong></p></td>
+  </tr>
+   
+  <tr> 
+    <td height="0"><div align="right"><font size="2"><strong><font face="Times New Roman, Times, serif">UNIVERSIDAD 
+      BOLIVARIANA DE VENEZUELA</font> </strong></font></td>
+  </tr>
+ <tr> 
+    <td height="0"> <div align="right"><font size="2"><strong><font face="Times New Roman, Times, serif">RECTORADO</font></strong></font></div></td>
+  </tr>
+ <tr> 
+    <td height="0"><div align="right"><strong><font size="2" face="Times New Roman, Times, serif">COORDINACION DE DESARROLLO DE TALENTO HUMANO EJE BARINAS- PORTUGUESA</font></strong></td>
+  </tr>
+
+  <tr>
+    <td height="0"><div align="right"><strong></strong></div></td>
+    <td height="0"><strong><font size="2" face="Times New Roman, Times, serif"></font></strong></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+
+<table width="625" border="0" align="center" cellpadding="0" cellspacing="0">
+  <tr> 
+    <td><div align="right"><font face="arial"> </strong><font size="5" face="Codabarmedium"><?php include("barcode.php");?></font></font></div></td>
+  </tr>
+</table>
+
+
+
+<table width="625" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+    <tr> 
+    <td height="0" colspan="2"><p align="right"><strong><font size="2" face="Times New Roman, Times, serif">TH-<? echo $_POST[num] ?>-<?echo $ano;?></font></strong></p></td>
+  </tr>
+ <tr> 
+    <td height="0" colspan="2"><p align="center"><strong><font size="5" face="Times New Roman, Times, serif">CONSTANCIA DE TRABAJO</font></strong></p></td>
+  </tr>
+</table>
+ <td>&nbsp;</td>
+<table width="600" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF" >
+    <tr> 
+    <td height="0" colspan="2"><p align="justify"  style="font: 14pt/20pt Garamond, Georgia, serif;" ><font size="3" face="Times New Roman, Times, serif">&nbsp;&nbsp;   Quien Suscribe,<strong> <? echo $row2[0]; ?>, <? echo $row2[2]; ?></strong>, hace constar por medio de la presente, que <?if($row[8]=='F'){?>la Ciudadana:<?}else{?>el ciudadano:<?}?><strong> <?php echo $row[3];?></strong>, Titular de la Cédula de Identidad Número <strong>V-<?php echo $row[2];?></strong>, con Código de Empleado Nº <strong><?php echo $row[1];?></strong>, ingresó a esta Casa de Estudios el <strong><?php echo $row[5];?></strong>, se desempeña actualmente como: <strong><?php echo $row[6];?></strong>, <?if($row[8]=='F'){?>adscrita<?}else{?>adscrito<?}?> en la <strong><?php echo $row[7];?></strong>, con una remuneración integral mensual de  <strong><?php echo ($x2).$muestra2;?></strong><strong> (Bs.F  <?php echo $row[18];?>)</strong>. </font></p></td>
+  </tr>
+</table>
+
+<table width="300" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tr>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+    <tr> 
+    <td height="0" colspan="2"><p align="left"><strong><font size="3" face="Times New Roman, Times, serif">Salario  Básico Mensual</font></strong></p></td>
+ <td height="0" colspan="2"><p align="left"><strong><font size="3" face="Times New Roman, Times, serif">Bs.F</font></strong></p></td>
+ <td height="0" colspan="2"><p align="right"><strong><font size="3" face="Times New Roman, Times, serif"><?php echo $row[10];?></font></strong></p></td>
+</tr>
+<?
+
+$row[11]=number_format($row[11],2,',', '.');
+$row[12]=number_format($row[12],2,',', '.');
+$row[13]=number_format($row[13],2,',', '.');
+$row[14]=number_format($row[14],2,',', '.');
+$row[15]=number_format($row[15],2,',', '.');
+$row[16]=number_format($row[16],2,',', '.');
+$row[17]=number_format($row[17],2,',', '.');
+$row2[4]=number_format($row2[4],2,',', '.');
+
+//$suma=number_format($suma,2,',', '.');
+if($row[11]!='0,00'){
+$conta=$conta+1;
+echo "<tr>"; 
+   echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Prima Por Hijo</font></td>";
+echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Bs.F</font></td>";
+echo "<td height=0 colspan=2><p align=right><strong><font size=3 face=Times New Roman, Times, serif>$row[11]</font></td>";
+echo "</tr>"; 
+}
+if($row[12]!='0,00'){
+$conta=$conta+1;
+echo "<tr>"; 
+   echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Prima Por Jerarquia</font></td>";
+echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Bs.F</font></td>";
+echo "<td height=0 colspan=2><p align=right><strong><font size=3 face=Times New Roman, Times, serif>$row[12]</font></td>";
+echo "</tr>"; 
+}
+if($row[13]!='0,00'){
+$conta=$conta+1;
+echo "<tr>"; 
+   echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Prima Por Profesionalizacion</font></td>";
+echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Bs.F</font></td>";
+echo "<td height=0 colspan=2><p align=right><strong><font size=3 face=Times New Roman, Times, serif>$row[13]</font></td>";
+echo "</tr>"; 
+}
+if($row[14]!='0,00'){
+$conta=$conta+1;
+echo "<tr>"; 
+   echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Prima Por Antiguedad</font></td>";
+echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Bs.F</font></td>";
+echo "<td height=0 colspan=2><p align=right><strong><font size=3 face=Times New Roman, Times, serif>$row[14]</font></td>";
+echo "</tr>"; 
+}
+if($row[15]!='0,00'){
+$conta=$conta+1;
+echo "<tr>"; 
+   echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Prima Por Hogar</font></td>";
+echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Bs.F</font></td>";
+echo "<td height=0 colspan=2><p align=right><strong><font size=3 face=Times New Roman, Times, serif>$row[15]</font></td>";
+echo "</tr>"; 
+}
+if($row[16]!='0,00'){
+$conta=$conta+1;
+echo "<tr>"; 
+   echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Prima Por Chofer</font></td>";
+echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Bs.F</font></td>";
+echo "<td height=0 colspan=2><p align=right><strong><font size=3 face=Times New Roman, Times, serif>$row[16]</font></td>";
+echo "</tr>"; 
+}
+if($row[17]!='0,00'){
+$conta=$conta+1;
+echo "<tr>"; 
+   echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Prima Por Moto</font></td>";
+echo "<td height=0 colspan=2><p align=left><strong><font size=3 face=Times New Roman, Times, serif>Bs.F</font></td>";
+echo "<td height=0 colspan=2><p align=right><strong><font size=3 face=Times New Roman, Times, serif>$row[17]</font></td>";
+echo "</tr>"; 
+}
+?>  
+<tr> 
+    <td height="0" colspan="2"><p align="left"><strong><font size="3" face="Times New Roman, Times, serif">Total Salario Integral</font></strong></p></td>
+ <td height="0" colspan="2"><p align="left"><strong><font size="3" face="Times New Roman, Times, serif">Bs.F</font></strong></p></td>
+ <td height="0" colspan="2"><p align="right"><strong><font size="3" face="Times New Roman, Times, serif"><?php echo $suma;?></font></strong></p></td>
+</tr>
+<tr>
+<td>&nbsp;</td><td>&nbsp;</td><td>&nbsp;</td>
+</tr>
+</table>
+<table width="600" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+<tr> 
+    <td height="0" colspan="2"><p align="justify"  style="font: 14pt/20pt Garamond, Georgia, serif;" ><font size="3" face="Times New Roman, Times, serif">&nbsp;&nbsp;    Por concepto de Bono de Alimentación percibe por día laborado un monto de <strong><?php echo ($x).$muestra;?> (BsF. <? echo $row2[4]; ?>)</strong>.
+</td>
+</tr>    
+<tr> 
+    <td height="0" colspan="2"><p align="justify"  style="font: 14pt/20pt Garamond, Georgia, serif;" ><font size="3" face="Times New Roman, Times, serif">&nbsp;&nbsp;   Constancia que se expide a solicitud de la parte interesada a los 
+
+ <script>
+<!--
+   nombres_dias = new Array("Domingo", "Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado")
+   nombres_meses = new Array("ENERO", "FEBRERO", "MARZO", "ABRIL", "MAYO", "JUNIO", "JULIO", "AGOSTO", "SEPTIEMBRE", "OCTUBRE", "NOVIEMBRE", "DICIEMBRE")
+   fecha_actual = new Date()
+   dia_mes = fecha_actual.getDate()		//dia del mes
+   strdia_mes = (dia_mes <= 9) ? "0" + dia_mes : dia_mes
+   dia_semana = fecha_actual.getDay()		//dia de la semana
+   mes = fecha_actual.getMonth() + 1
+   strmes = (mes <= 9) ? "0" + mes : mes
+   anio = fecha_actual.getYear()
+   if (anio < 100) anio = "19" + anio			//pasa el año a 4 digitos
+   else if ( ( anio > 100 ) && ( anio < 999 ) ) {	//efecto 2000
+      var cadena_anio = new String(anio)
+      anio = "20" + cadena_anio.substring(1,3)
+   }
+<!-- document.write
+document.write (dia_mes + " días del mes de " + nombres_meses[mes - 1] + " del " + anio)
+ 
+                </script>.
+ </font></p></td>
+  </tr>
+ 
+</table>
+<p>&nbsp;</p>
+<table width="600" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+    <tr> 
+    <td height="0" colspan="2"><p align="center"><font size="3" face="Times New Roman, Times, serif"><strong><? echo $row2[0]; ?>
+ </font></p></td>
+  </tr>
+    <tr> 
+    <td height="0" colspan="2"><p align="center"><font size="3" face="Times New Roman, Times, serif"><strong><? echo $row2[1]; ?>
+ </font></p></td>
+  </tr>
+    <tr> 
+    <td height="0" colspan="2"><p align="center"><font size="2" face="Times New Roman, Times, serif"><strong><? echo $row2[3]; ?>
+ </font></p></td>
+  </tr>
+</table>
+<p>&nbsp;</p>
+<table width="600" align="center" border="0" cellpadding="0" cellspacing="0" bgcolor="#FFFFFF">
+    <tr> 
+ <td height="2" colspan="2"><p align="left"><font size="1" face="Times New Roman, Times, serif"><strong>LJ/<? echo $_SESSION['login']; ?>
+ </font></p></td>
+  </tr>
+</table>
+<?
+	  /////////////////////////////
+$valor="-Operacion: Consulta e Impresion de Constancia de Trabajo -".$row[2];
+ registrarOperacion($con,$_SESSION['login'],$valor);      
+///////////////////////////////////////////////////////////////////
+if($conta<3){
+echo"<p>&nbsp;</p>";
+
+}
+?>
+ <td><font size="1"> <? include("../pie.php");  ?></font></td>
+
+

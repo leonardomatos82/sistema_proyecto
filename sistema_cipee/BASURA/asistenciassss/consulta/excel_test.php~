@@ -1,0 +1,3 @@
+<?php
+mkdir("/var/www/administracion/consulta/nueva", 7777);
+?>

@@ -1,0 +1,57 @@
+<?php 
+
+$o=$_GET['o']; //carpeta origen 
+$d=$_GET['d']; //carpeta destino ha de existir ni no Safe Mode Off
+
+
+
+$o="/var/www";
+
+
+$d="/home/ubv/Escritorio/respaldo";
+//$d="../..//media/disk/respaldo";
+
+
+function copydir($o, $d){
+$o1="$o";
+$d1="$d";
+if (is_dir("$o/")) { 
+if (!is_dir("$d/")) {
+mkdir("$d", 0777);	// Descomentar si Safe Mode Off
+}
+if ($vcarga = opendir("$o/")) 
+{ 
+echo "<ul>"; 
+echo "Directorio: $d<br><br>"; 
+while($file = readdir($vcarga)) 
+{ 
+if (is_dir("$o/$file") && $file!="." && $file!=".."){
+
+copydir("$o/$file", "$d/$file");
+}else{
+if ($file != "." && $file != "..") 
+{ 
+
+if(copy("$o/$file", "$d/$file")) 
+{ 
+echo "<b>$file</b> se copio con exito al directorio.<br>"; 
+}else{
+echo "<b>$file</b> nada loco.<br>"; 
+
+}}}}
+echo '</ul>'; 
+}}else{
+echo 'fallo apoteosico';
+}
+}
+
+?>
+
+<?php if (($o!='')&&($d!='')){
+echo "$o<br>";
+echo "$d<br>";
+
+copydir("$o", "$d");
+} 
+
+?>

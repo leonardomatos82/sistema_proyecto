@@ -1,0 +1,136 @@
+<?
+$login=$_POST[login];
+$clave=$_POST[password];
+//$time=$_GET[time];
+$fecha=date("Y-m-d");
+include("../config.php");
+include("../utils.php");
+$result = pg_query($con, "select * from personal where cedula='".$clave."'"); 
+$query2="SELECT * FROM horario where id_horario='1'";
+$result2=pg_query($con,$query2);
+$row2=pg_fetch_array($result2);
+
+
+ 
+$hora = getdate(time());
+
+ if ($hora["hours"]>12){ 
+ $hora["hours"] = $hora["hours"]-12;
+ $m="PM";
+ }else{
+  $m="AM";
+ }
+ 
+  if ($hora["hours"]<=9){ 
+     $h="0".$hora["hours"];
+ }else{
+     $h=$hora["hours"];
+ }
+ if ($hora["minutes"]<=9){ 
+     $min="0".$hora["minutes"];
+ }else{
+     $min=$hora["minutes"];
+ }
+  if ($hora["seconds"]<=9){ 
+     $seg="0".$hora["seconds"];
+ }else{
+     $seg=$hora["seconds"];
+ }
+
+  
+
+$time=$h . ":" . $min;
+
+ if ($time>=$row2[entra1] && $time<=$row2[sale1]){$turno=1;}
+if ($time>=$row2[entra2] && $time<=$row2[sale2]){$turno=2;}
+ if ($time>=$row2[entra3] && $time<=$row2[sale3]){$turno=3;}
+ if ($time>=$row2[entra4] && $time<=$row2[sale4]){$turno=4;}   
+
+
+
+
+
+//echo $time;
+
+$query="SELECT * FROM personal where cedula='$clave'";
+$result=pg_query($con,$query);
+$row=pg_fetch_array($result);
+
+
+ if (($_POST[password]=="") )
+  { 
+  header("Location: ../index.php");}else {
+	
+   if (($_POST[password]==$row[cedula]) )
+    {
+     $queryf="SELECT * FROM asistencia where fecha='$fecha' and cedula='$_POST[password]'";
+$resultf=pg_query($con,$queryf);
+$rowf=pg_fetch_array($resultf);
+ 
+
+echo $fecha;
+//die();
+     if (($fecha==$rowf[fecha]) )
+    {
+    if ($turno==1){
+ 			  $sql3="update asistencia set entra1='$time' where fecha='$fecha' and cedula='$row[cedula]'"; 
+         }
+          if ($turno==2){
+ 			  $sql3="update asistencia set sale1='$time' where fecha='$fecha' and cedula='$row[cedula]'"; 
+         }
+          if ($turno==3){
+ 			  $sql3="update asistencia set entra2='$time' where fecha='$fecha' and cedula='$row[cedula]'"; 
+         }
+          if ($turno==4){
+ 			  $sql3="update asistencia set sale2='$time' where fecha='$fecha' and cedula='$row[cedula]'"; 
+         }
+     if (!pg_query($con, $sql3)) { die('Error: ' . pg_result_error()); }
+    
+    }else{
+ 			
+ 			//echo $turno; die();
+ 			if ($turno==1){
+ 			  $sql3="INSERT INTO asistencia(
+            fecha, id_personal, cedula,id_dpto, entra1)
+        VALUES ('$fecha','$row[id_personal]','$row[cedula]','$row[id_dpto]','$time')"; 
+               			}
+             if ($turno==2){
+ 			  $sql3="INSERT INTO asistencia(
+            fecha, id_personal, cedula,id_dpto, sale1)
+        VALUES ('$fecha','$row[id_personal]','$row[cedula]','$row[id_dpto]','$time')"; 
+               			}   			
+              			if ($turno==3){
+ 			  $sql3="INSERT INTO asistencia(
+            fecha, id_personal, cedula,id_dpto, entra2)
+        VALUES ('$fecha','$row[id_personal]','$row[cedula]','$row[id_dpto]','$time')"; 
+               			}
+               			
+               	 			if ($turno==4){
+ 			  $sql3="INSERT INTO asistencia(
+            fecha, id_personal, cedula,id_dpto, sale2)
+        VALUES ('$fecha','$row[id_personal]','$row[cedula]','$row[id_dpto]','$time')"; 
+               			}		
+               			
+               			
+               			
+ 					 if (!pg_query($con,$sql3)) { die('Error:jjhjh ' . pg_result_error()); } 
+ 			
+          
+     
+     
+		
+		   	    /////////////////////////////
+$valor="-Operacion: Registro de asistencia ".$_POST[password];
+        registrarOperacion($con,$_POST[password],$valor);      
+///////////////////////////////////////////////////////////////////  
+		}
+		   header("Location: mensaje.php?nombre=$row[nombre]&cedula=$_POST[password]&time=$time");
+	 }
+	  else 
+	 {
+include("../config.php");
+include("css.php");
+
+	 }
+ }
+?>      

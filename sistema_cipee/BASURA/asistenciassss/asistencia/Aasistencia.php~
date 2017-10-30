@@ -1,0 +1,96 @@
+<?php 
+include("../control/valida.php"); 
+include("../css.php");
+include("../config.php");
+include("../atras.php"); 
+
+$nombre= $_POST['nombre'];
+$rc2="SELECT personal.CEDULA, personal.nombre
+ FROM personal 
+ where personal.id_dpto='$_SESSION[dpto]' 
+";
+$qrc2=pg_query($con,$rc2);
+ ?>
+ <script language="JavaScript">
+function acceptNum(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key <= 13 || (key >= 48 && key <= 58));
+}
+var nav4 = window.Event ? true : false;
+function acceptChar(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key < 47 || key > 57);
+}
+  </script>
+<table width="760" border="0" align="center" bgcolor="#FFFFFF">
+  <tr>
+    <td colspan="2">AGREGAR UN REGISTRO DE ASISTENCIA</td> 
+  </tr>
+  <tr>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+            
+        
+    
+  </tr>
+  <tr>
+    <td height="59"><p align="right">&nbsp;</p>
+    <p align="right">&nbsp;</p></td>
+    <td><table width="100%" height="48" border="0"  align="center" cellpadding="0" cellspacing="1" >
+
+      <tr>
+        <td width="100%" height="42" bordercolor="#000000" bgcolor="#FFFFFF"><?php
+        
+
+
+echo "<form id=form1 name=form1 method=post action=insert_asistencia.php?fecha=$fech>";
+
+echo "<table align=center cellpadding=1 cellspacing=0 background-color: rgb(255, 255, 255); border =2; WIDTH=100% bgcolor=#FFFFFF >";
+echo "<tr>";
+echo "<td <small style=width: 50px font-weight: bold><b>FECHA</b></td>";
+
+echo "<td <small style=width: 50px font-weight: bold><b>NOMBRES Y APELLIDOS</b></td>";
+echo "<td <small style=width: 50px font-weight: bold><b>ENTRA</b></td>";
+echo "<td <small style=width: 100px font-weight: bold><b>SALE</b></td>";
+echo "<td <small style=width: 50px font-weight: bold><b>ENTRA</b></td>";
+echo "<td <small style=width: 100px font-weight: bold><b>SALE</b></td>";
+echo "<td <small style=width: 50px font-weight: bold><b>OBSERVACIONES</b></td>";
+
+echo "</tr> ";
+
+
+echo "<tr> ";
+$c++;
+
+?>
+<td <input autocomplete=OFF MAXLENGTH=10 size="7" name="fecha" type="text"   value="<?echo date("d-m-Y");?>" /> </td>
+<td><select name="nombre" id="select5">
+                <option value="" selected></option>
+                     <?php while($obj=pg_fetch_object($qrc2)){$nombre=$obj->nombre?>
+                <option value="<? echo $obj->cedula?>"><? echo $nombre?></option>
+                <? }//Fin while ?>
+              </select></td>
+
+<td <input autocomplete=OFF MAXLENGTH=5 size="3" onKeyPress="return acceptNum(event)" name="entra1" type="text"   value="<?echo $row[3]?>" /> </td>
+<td <input autocomplete=OFF MAXLENGTH=5 size="3" onKeyPress="return acceptNum(event)" name="sale1" type="text"   value="<?echo $row[4]?>" /> </td>
+<td <input autocomplete=OFF MAXLENGTH=5 size="3" onKeyPress="return acceptNum(event)" name="entra2" type="text"   value="<?echo $row[5]?>" /> </td>
+<td <input autocomplete=OFF MAXLENGTH=5 size="3" onKeyPress="return acceptNum(event)" name="sale2" type="text"   value="<?echo $row[6]?>" /> </td>
+<td <input autocomplete=OFF size="14"  name="observacion" type="text"   value="<?echo $row[7]?>" /> </td>
+<?
+
+?>
+        </td>
+       
+        <?PHP
+echo "</tr> ";
+
+echo "</table>";
+  echo "<p align=center><strong>	<input value=Agregar type=submit name=submit1 /> </strong></p>";
+echo "</form>";
+?>
+        
+          </tr>
+    </table></td>
+   
+  </tr>
+<a href="javascript:close()">Cerrar ventana</a>
+ <?php
+include("../pie.php"); 
+ ?>

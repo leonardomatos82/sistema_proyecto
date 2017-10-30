@@ -1,0 +1,3 @@
+<?php
+ $nicks = array ();
+?>

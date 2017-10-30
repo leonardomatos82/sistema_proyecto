@@ -1,0 +1,148 @@
+<!-- POSTIT -->
+  <?
+include("../config.php");
+//$resultado1 = pg_query($con,"SELECT * FROM departamento order by nombre_departamento");
+$resultado1 = pg_query($con,"SELECT * FROM repuesto");
+ $cant_reg4=pg_fetch_array($resultado4);
+?> 
+<style>
+<!--
+#postit{
+position:absolute;
+width:170;
+padding:5px;
+background-color:yellow;
+border:1px solid black;
+visibility:hidden;
+z-index:500;
+cursor:hand;
+}
+-->
+</style>
+ 
+</head>
+ 
+    
+<body>
+ 
+<div id="postit" style="left:1050px;top:377px">
+<div align="right"><b><a href="javascript:closeit()"><font face="Arial" size="1">[CERRAR]</font></a></b></div>
+ 
+<!-- INSERTA EL CONTENIDO AQUÍ -->
+ 
+<b>Consulta N Parte</b><br>
+<p><font size="2" face="Arial"><font face="Verdana" size="1">
+</a><br>Consultar Numer de parte</br>
+<form id="form1" name="form1" method="post" action="">
+                <select name="departamento" id="departamento" >
+                <option value="<? echo $cant_reg4[1]?>" selected><? echo $cant_reg4[2]?></option>
+                <?php while($obj=pg_fetch_object($resultado1)){?>
+                <option value="<? echo $obj->codigo?>"> <? echo $obj->descripcion?> 
+                </option>
+                <? 
+echo $cant_reg4[2];   
+}
+
+
+//Fin while ?>
+              </select>        
+<input name="submit2" type="submit" value="Volver" />
+</form>
+<!-- FIN DEL CONTENIDO -->
+ 
+</div>
+ 
+<script>
+ 
+var once_per_browser=0
+ 
+///No modifiques lo que sigue///
+ 
+var ns4=document.layers
+var ie4=document.all
+var ns6=document.getElementById&&!document.all
+ 
+if (ns4)
+crossobj=document.layers.postit
+else if (ie4||ns6)
+crossobj=ns6? document.getElementById("postit") : document.all.postit
+ 
+
+function closeit(){
+if (ie4||ns6)
+crossobj.style.visibility="hidden"
+else if (ns4)
+crossobj.visibility="hide"
+}
+ 
+function get_cookie4(Name) {
+  var search = Name + "="
+  var returnvalue = "";
+  if (document.cookie4.length > 0) {
+    offset = document.cookie4.indexOf(search)
+    if (offset != -1) { // if cookie4 exists
+      offset += search.length
+      // set index of beginning of value
+      end = document.cookie4.indexOf(";", offset);
+      // set index of end of cookie4 value
+      if (end == -1)
+         end = document.cookie4.length;
+      returnvalue=unescape(document.cookie4.substring(offset, end))
+      }
+   }
+  return returnvalue;
+}
+ 
+function showornot(){
+if (get_cookie4('postdisplay')==''){
+showit()
+document.cookie4="postdisplay=yes"
+}
+}
+ 
+function showit(){
+if (ie4||ns6)
+crossobj.style.visibility="visible"
+else if (ns4)
+crossobj.visibility="show"
+}
+ 
+if (once_per_browser)
+showornot()
+else
+showit()
+ 
+</script>
+ 
+<script language="JavaScript1.2">
+ 
+//función arrastrar y soltar para ie4+ y NS6////
+function drag_drop(e){
+if (ie4&&dragapproved){
+crossobj.style.left=tempx+event.clientX-offsetx
+crossobj.style.top=tempy+event.clientY-offsety
+return false
+}
+else if (ns6&&dragapproved){
+crossobj.style.left=tempx+e.clientX-offsetx
+crossobj.style.top=tempy+e.clientY-offsety
+return false
+}
+}
+ 
+function initializedrag(e){
+if (ie4&&event.srcElement.id=="postit"||ns6&&e.target.id=="postit"){
+offsetx=ie4? event.clientX : e.clientX
+offsety=ie4? event.clientY : e.clientY
+ 
+tempx=parseInt(crossobj.style.left)
+tempy=parseInt(crossobj.style.top)
+ 
+dragapproved=true
+document.onmousemove=drag_drop
+}
+}
+document.onmousedown=initializedrag
+document.onmouseup=new Function("dragapproved=false")
+ 
+</script>

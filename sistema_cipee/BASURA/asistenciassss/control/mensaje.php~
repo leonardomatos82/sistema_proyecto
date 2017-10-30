@@ -1,0 +1,67 @@
+<?
+$clave=$_GET[cedula];
+$nombre=$_GET[nombre];
+$time=$_GET[time];
+include("../config.php");
+include("../utils.php");
+
+$fecha=date("d-m-Y");
+include("../style.php");
+include("../tabla2.php");
+$hora = getdate(time());
+
+ if ($hora["hours"]>12){ 
+ $hora["hours"] = $hora["hours"]-12;
+ $m="PM";
+ }else{
+  $m="AM";
+ }
+?>
+<html>
+<head>
+<meta http-equiv="refresh" content="5; url=http://bar30/asistencia" >
+
+  
+  
+
+
+</head>
+<body>
+
+<div style="text-align: center;">
+<div style="text-align: center;">
+    <table width="767" border="0" align="center" bgcolor="#FFFFFF">
+  
+      <tr> 
+        <td>&nbsp;</td>
+        <td><div align="LEFT"><font size="4">REGISTRO DE ASISTENCIA</font></div></td>
+        <td>&nbsp;</td>
+      </tr>
+       <tr> 
+        <td>&nbsp;</td>
+        <td><div align="LEFT"><font size="4"></font></div></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr> 
+      <td>&nbsp;</td>
+        <td>Usted: <? echo $nombre ?></td>
+        </tr> 
+        <tr> 
+      <td>&nbsp;</td>
+        <td>Registro su asistencia el dia y hora senalado: <? echo $fecha."----".$time." ".$m ?></td>
+        </tr> 
+ <td>&nbsp;</td>
+        <td><div align="center"><FONT Size=2> |<a href="../index.php"> <font size="5">Volver</font></a> 
+            |</FONT></div></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr> 
+        <td>&nbsp;</td>
+        <td>  <? include("../pie.php"); ?></td>
+        <td>&nbsp;</td>
+      </tr>
+      
+    </table>
+  
+</body>
+</html>

@@ -1,0 +1,188 @@
+<?php	
+include("../control/valida.php"); 
+include("../config.php");
+include("../tabla.php");
+include("../utils.php");
+//include("../utilidades/postit.php");
+
+
+
+if ($_GET[ids]==''){
+$ids=$_POST[ids];
+}else{
+$ids=$_GET[ids];
+}
+
+include("../barra.php");
+$guardar="ASIGNAR";
+
+
+if ($_GET[id]==''){
+$resultadociclo = pg_query($con,"SELECT count(id_pedido)  FROM detalle_pedido where id_pedido='$ids'");
+ $cant_regciclo=pg_fetch_array($resultadociclo);
+$n=$cant_regciclo[0];
+$_GET[id]=$n;
+$ruta="edit_factura.php?id=$_GET[id]";
+$resultado1 = pg_query($con,"SELECT * FROM orden_pedido where id_pedido='$ids'");
+ $cant_reg1=pg_fetch_array($resultado1);
+ $cant_reg1[1]=cambiaf_a_normal($cant_reg1[1]);
+
+$_POST[ids]= $cant_reg1[0];
+$_POST[fecha]=$cant_reg1[1];
+$_POST[v1]=$cant_reg1[2];
+$_POST[v2]=$cant_reg1[3];
+$_POST[v3]=$cant_reg1[4];
+$_POST[v4]=$cant_reg1[5];
+}
+
+if($_POST[submit1]){
+$cont=$_GET[id];
+$cont--;
+$_GET[id]=$cont;
+//echo "eliminar :".$cont;
+$ruta="Mdespacho.php?id=$cont";
+}
+
+?>
+<script language="JavaScript">
+function acceptNum(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key <= 13 || (key >= 44 && key <= 57));
+}
+var nav4 = window.Event ? true : false;
+function acceptChar(evt){ var key = nav4 ? evt.which : evt.keyCode; return (key < 44 || key > 57);
+}
+function textCounter(field, countfield, maxlimit) {
+if (field.value.length > maxlimit)
+field.value = field.value.substring(0, maxlimit);
+else 
+countfield.value = maxlimit - field.value.length;
+}
+function asignar(field1,field2) {
+diferencia=field1.value;
+var mi_numero=diferencia;
+
+field2.value=mi_numero;
+
+
+}
+
+function comparar(field1,field2,field3,countfield) {
+if (field1.value >= countfield.value)
+field1.value = "";
+
+}
+  </script>
+ 
+ <?php
+//include("../atras.php"); 
+ ?>
+<table width="640" border="0" align="center" bgcolor="#FFFFFF">
+  <tr> 
+    <td colspan="2"><strong>Asignar factura a la Orden de Pedido</strong></td>
+    <td width="73">&nbsp;</td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+        <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr> 
+    <td>&nbsp;</td>
+    <td><form id="form1" name="form1" method="post" action="<? echo $ruta; ?>">
+        <table width="98%" height="150" border="0" cellpadding="2" cellspacing="0">
+          <tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+            <td width="21%" height="23"> <div align="right"></div></td>
+            
+          </tr>
+        <tr> 
+             <td width="21%" height="28"> <div align="left"><font size="1"><strong>FACTURA:</strong> 
+            <td width="70%"><input autocomplete=OFF name="nfactura" type="text" id="ids" value="<?php echo $_POST[nfactura];?>"  size="15" >
+              <input value="<? echo $guardar; ?>" type="submit" name="submit3" /> <font size="1"></td>
+          </tr>
+         <tr> 
+             <td width="21%" height="28"> <div align="left"><font size="1"><strong>Id:</strong> 
+            <td width="70%"><input autocomplete=OFF readonly name="ids" type="text" id="ids" value="<?php echo $_POST[ids];?>"  size="15" >
+              <font size="1"></td>
+          </tr>
+           <tr> 
+             <td width="21%" height="28"> <div align="left"><font size="1"><strong>Fecha:</strong> 
+            <td width="70%"><input autocomplete=OFF readonly name="fecha" type="text" id="fecha" value="<?php echo $_POST[fecha];?>"  size="15" >
+              <font size="1">* (dd-mm-yyyy)</td>
+          </tr>
+             <tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+            <td width="21%" height="26"> <div align="left"><font size="1"><strong>Nombre y Apellido o Razon Social :</strong></div></td>
+            <td><input  size="50" name="v1" type="text" readonly  value="<?php echo $_POST[v1];?>"  /> 
+            </td>
+          </tr>
+            <tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+            <td width="21%" height="26"> <div align="left"><font size="1"><strong>Direccion:</strong></div></td>
+            <td><input  size="50" name="v2" type="text"  readonly value="<?php echo $_POST[v2];?>"  /> 
+            </td>
+          </tr>
+ <tr> 
+             <td width="21%" height="28"> <div align="left"><font size="1"><strong>Rif/CI:</strong> 
+            <td width="70%"><input  name="v3" type="text" readonly id="v3" value="<?php echo $_POST[v3];?>"  size="15" ></td>
+          </tr>
+                 </tr>          
+             <tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+            <td width="21%" height="26"> <div align="left"><font size="1"><strong>Forma de Pago :</strong></div></td>
+                 <td>
+                <select name="v4" id="pago">
+                <option  value="<? echo $_POST[v4]?>" readonly selected><? echo $_POST[v4];?></option>
+               
+             
+              </select>            </td>
+          </tr>           
+    </table>
+        </table>
+<?
+$result4 = pg_query($con,"SELECT detalle_pedido.id_pedido,repuesto.codigo,repuesto.descripcion,detalle_pedido.costo,detalle_pedido.cantidad
+FROM detalle_pedido 
+Inner join repuesto on repuesto.id_repuesto=detalle_pedido.id_repuesto
+where id_pedido=$ids");
+
+
+ echo "<table align=center cellpadding=1 cellspacing=0 background-color: rgb(255, 255, 255); border =2; WIDTH=350 bgcolor=#FFFFFF >";
+
+echo "<tr>";
+echo "<td <small style=width: 50px font-weight: bold><b><font size=1>N. PARTE</b></td>";
+echo "<td <small style=width: 100px font-weight: bold><b><font size=1>DESCRIPCION</b></td>";
+echo "<td <small style=width: 50px font-weight: bold><b><font size=1>CANTIDAD</b></td>";
+echo "<td <small style=width: 50px font-weight: bold><b><font size=1>MONTO</b></td>";
+
+echo "</tr> ";
+while ($row4 = pg_fetch_row($result4)){
+echo "<tr> ";
+echo "<td <small style=width: 50px ><font size=1>$row4[1]</td> ";
+echo "<td <small style=width: 50px ><font size=1>$row4[2]</td> ";
+echo "<td <small style=width: 50px ><font size=1>$row4[4]</td> ";
+echo "<td <small style=width: 50px ><font size=1>$row4[3]</td> ";
+
+?>
+        </p>
+        <?PHP
+echo "</tr> ";
+}
+echo "</table>";
+?>
+
+
+    
+ <table width="60%" border="0" align="center">
+          
+        
+          <tr> 
+          <td ></td>
+            <td width="10%"><div align="center"><strong> 
+               
+               
+                </strong></div></td>
+            
+          </tr>
+             </form></td>
+       </table>   
+    <td>&nbsp;</td>
+  </tr>
+
+ <?php
+include("../pie.php"); 
+ ?>

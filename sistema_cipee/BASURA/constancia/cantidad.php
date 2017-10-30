@@ -1,0 +1,18 @@
+<?php
+//para el registro contable
+include("../config.php");
+$rc="select count(id_despacho) from despacho";
+$qrc=pg_query($con,$rc);
+$cant_reg=pg_fetch_array($qrc);
+$num=$cant_reg[3]+1;
+$numerosig=$num;
+if ($num<100)
+{
+$numerosig="NE-BNS"."0".$num;
+}
+if ($num<10)
+{
+$numerosig="NE-BNS"."00".$num;
+}
+
+?>

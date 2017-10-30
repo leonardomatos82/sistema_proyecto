@@ -1,0 +1,36 @@
+//////////////////////////////////////////////////////
+//
+// MensaHurdes (beta)V. 2007 1.0 
+// 
+// Última Modificación: 21-Enero-2007
+// www.MensaHurdes.es.mw
+// mensahurdes.iespana.es
+//Copyright (C) 2006  Hurdes: hurdes@gmail.com
+//
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// Este programa es Software Libre; Usted puede redistribuirlo y/o modificarlo 
+//bajo los términos de la GNU Licencia Pública General (GPL) tal y como ha sido 
+//públicada por la Free Software Foundation; o bien la versión 2 de la Licencia, 
+//o (a su opción) cualquier versión posterior.
+// Este programa se distribuye con la esperanza de que sea útil, pero SI NINGUNA GARANTÍA.
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+Requisitos del Tagboard MensaHurdes (beta)V. 2007 1.0.
+
+1. Este script funciona con php 4 ó superior.
+
+
+Instalación del Tagboard MensaHurdes (beta)V. 2007 1.0.
+
+1. Sube todos los ficheros a tu sitio web, para ello puedes subir directamente la carpeta ó crearte un nuevo directorio.
+
+2. Desde el navegador ve a la dirección www.tusitio.com/carpetaMensahurdes/Instalar.php
+
+3. Sigue Las Instrucciones y Listo.
+
+4. Si tienes problemas con la instalación prueba a darle permisos de escritura al archivo 
+   conf.php chmod 640.
+
+   Para cualquier duda puedes consultar la página www.mensahurdes.es.mw
+   
+   --- Suerte y que lo disfrutes ---

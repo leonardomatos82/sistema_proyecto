@@ -1,0 +1,54 @@
+<?php
+ session_start();
+//include("../control/valida.php"); 
+include("../config.php");
+include("../utils.php");
+include("../tabla.php"); 
+include("../barra.php");
+?> 
+<table width="750" border="0" align="center" bgcolor="#FFFFFF">
+  <tr>
+    <td colspan="2">
+<form id="form1" name="form1" method="post" action="../menu.php">
+
+
+
+
+          
+<?php
+   
+if($_POST[fondo]==""  || $_POST[banner1]=="" || $_POST[banner2]==""|| $_POST[menu]=="")
+		{
+		echo"<b>Mensaje: </b>".Todos_los_campos_son_obligatorios."<br><br>"; 
+       	}
+	  else 
+	   {
+	  
+	 $sql = "UPDATE interfaz SET
+ fondo='$_POST[fondo]', banner='$_POST[banner1]', menu='$_POST[menu]', banner2='$_POST[banner2]'";
+   
+	   if (!pg_query($con,$sql)) { die('Error:hhtt ' . pg_result_error()); } 
+
+ echo " Registro  Modificado";
+            /////////////////////////////
+$valor="-Operacion: Editar archivo de configuracion -".$_POST[fondo];
+ registrarOperacion($con,$_SESSION['login'],$valor);      
+///////////////////////////////////////////////////////////////////  
+        }
+ pg_close($con);
+?>
+
+</td>
+</tr>
+
+<tr bordercolor="#000000" bgcolor="#FFFFFF"> 
+<td height="23" colspan="2"><div align="center"> 
+<input name="submit" type="submit" value="Volver a la Pagina de Inicio" />
+</div></td>
+</tr>
+  </form>
+      </table>    
+<? include("../pie.php"); ?>
+
+
+

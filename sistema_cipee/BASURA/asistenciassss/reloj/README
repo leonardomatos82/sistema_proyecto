@@ -1,0 +1,89 @@
+################################################################################
+# Analogic clock                               Version 1.0                     #
+# Copyright 2000 Frederic TYNDIUK (FTLS)       All Rights Reserved.            #
+# E-Mail: tyndiuk@ftls.org                     Script License: GPL             #
+# Created  02/28/2000                          Last Modified 02/28/2000        #
+# Scripts Archive at:                          http://www.ftls.org/php/        #
+################################################################################
+
+
+1. What is it ?
+===============
+
+	This script display a image of a analogic clock on your Web page.
+
+
+2. System Requirements:
+=======================
+
+	- A web server, with PHP3 or newer with GD Lib installed.
+
+
+3. What this archive contains ?
+===============================
+
+	This archive comes with 6 files:
+	    1) COPYING:     	Copyright informations (GPL).
+	    2) README:      	This file.
+	    3) LISEZMOI:    	French doc...
+	    4) clock.php:	    The PHP script.
+
+
+4. Installation and Configuration:
+==================================
+
+	It's a PHP script, so installation is pretty easy.
+
+	Copy 'clock.php' in your good directory.
+
+
+5. How to run it ?
+==================
+
+	Add this code into your web page :
+		<IMG SRC="clock.php?size=xXx" BORDER="0"> 
+			xXx is size of clock image.
+
+	Look result.
+
+
+6. Version history:
+===================
+
+	Version 1.0         02/28/2000  - Script Created.
+
+
+7. Copyright:
+=============
+
+	This software is copyright (C) 1999 Frederic TYNDIUK. It is distributed
+under the terms of the GNU General Public License (GPL). Because it is licensed
+free of charge, there is NO WARRANTY, it is provided AS IS. The author can not
+be held liable for any damage that might arise from the use of this software.
+Use it at your own risk. 
+	See the file COPYING for more details (or http://www.gnu.org/).
+
+	Warning: This script is a free software so, but you should not remove copyright...
+
+
+8. Updates ?
+============
+
+	Latest version and New Scripts can be found at:
+	
+			http://www.ftls.org/en/
+
+
+9. Contact:
+===========
+
+	Please feel free to contact me with any comments, suggestions, bug fixes
+criticism, or just a happiness messages.
+
+	If you run into any problems while trying to configure these scripts
+first read this file carefully, if you don't find any solution, send me a Mail.
+
+	E-Mail: tyndiuk@ftls.org
+	Web: http://www.ftls.org/
+
+                                                  Frederic TYNDIUK

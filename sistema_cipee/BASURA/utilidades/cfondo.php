@@ -1,0 +1,62 @@
+<?php
+
+include("../control/valida.php"); 
+include("../config.php");
+include("../tabla2.php"); 
+include("../barra.php");
+
+//include("../utils.php");
+
+?>
+
+
+<table width="750" border="0" align="center" bgcolor="#FFFFFF">
+
+    <td colspan="2"><strong>Cambiar Fondo de Sistema</strong></td>
+
+   
+
+  </tr>
+
+  <tr> 
+
+    <td width="60">&nbsp;</td>
+
+    <td width="709"><em></em></td>
+
+   
+
+  </tr>
+
+
+  <tr> 
+
+    <td>&nbsp;</td>
+
+    <td><form id="form1" name="form1" method="post" action="edit_fondo.php">
+
+        <table width="98%" height="" border="0" cellpadding="2" cellspacing="0">
+
+      <tr>
+          <td width="13%" height="35"><div align="left">FONDO:</div></td>
+          <td width="87%"><select name="fondo">
+              <option value="imagenes/fondo/t.jpg">Fondo Predeterminado</option>
+              <option value="imagenes/fondo/t1.jpg">Fondo Morado</option>
+     		<option value="imagenes/fondo/t3.jpg">Fondo azul</option>
+              <option value="imagenes/fondo/t2.jpg">Fondo Rojo</option>
+ 		<option value="imagenes/fondo/t4.png">Fondo Verde</option>
+<option value="imagenes/fondo/t5.jpg">Fondo Marron</option>
+<option value="imagenes/fondo/t6.jpg">Fondo Amarillo</option>
+<option value="imagenes/fondo/t7.jpg">Fondo Verde-Amarillo</option>
+            </select>
+      </td>
+        </tr>
+  <tr>
+          <td></td>
+          <td><input value="Guardar" type="submit" name="submit"></td>
+        </tr>
+        </table>
+
+      </form>
+      </table>    
+      <? include("../pie.php"); ?>
