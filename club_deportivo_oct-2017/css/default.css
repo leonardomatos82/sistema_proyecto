@@ -1,0 +1,62 @@
+@charset "UTF-8";
+
+@import "default.css";
+
+
+/* -- Base style extension -- */
+
+ul.dropdown li a {
+ display: block;
+ padding: 7px 14px;
+ width: 60px;
+ 
+ 
+}
+
+
+/* -- Base style override -- */
+
+ul.dropdown li {
+ padding: 0;
+}
+
+
+/* -- Base style reinitiate: post-override activities -- */
+
+ul.dropdown li.dir {
+ padding: 7px 20px 7px 14px;
+ 
+}
+
+ul.dropdown ul li.dir {
+ padding-right: 5px;
+ width: 60px;
+}
+
+
+/* -- Custom -- */
+
+ul.dropdown ul a {
+ padding: 4px 5px 4px 14px;
+ width: 120px; /* Especially for IE */
+}
+/* -- color verde del hoover del menu -- */
+ul.dropdown ul a:hover {
+ background-color: #119955;
+  width: 120px;
+}
+
+
+/* -- Drop-down open -- */
+
+ul.dropdown li:hover > a.dir {
+ background-color: #119955;
+ color: #76b900;
+ width: 60px;
+}
+
+ul.dropdown ul li:hover > a.dir {
+ background-color: #;
+ color: #fff;
+ width: 60px;
+}

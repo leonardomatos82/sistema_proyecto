@@ -1,0 +1,90 @@
+CREATE TABLE actividades
+(
+  id serial NOT NULL,
+  descripcion character varying(255),
+  monto real,
+  horario character varying(150),
+  fecha_inicio date,
+  fecha_fin date,
+  fecha_corte date,
+  estatus character varying(20),
+  CONSTRAINT actividades_pkey PRIMARY KEY (id )
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE TABLE datos_personales
+(
+  id serial NOT NULL,
+  dni character varying(15),
+  nombre character varying(150),
+  telefono character varying(15),
+  telefono_casa character varying(15),
+  correo character varying(150),
+  direccion character varying(255),
+  fecha_nacimiento date,
+  fecha_inscripcion date,
+  fecha_corte date,
+  estatus character varying(20),
+  CONSTRAINT datos_personales_pkey PRIMARY KEY (id )
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE TABLE inscripcion
+(
+  id serial NOT NULL,
+  id_datos_personales integer,
+  id_actividades integer,
+  fecha_inscripcion date,
+  carnet_emitido character varying(10),
+  estatus character varying(20),
+  CONSTRAINT inscripcion_pkey PRIMARY KEY (id )
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE TABLE pagos
+(
+  id serial NOT NULL,
+  id_inscripcion integer,
+  id_datos_personales integer,
+  id_actividades integer,
+  descripcion character varying(255),
+  medio_pago character varying(20),
+  monto real,
+  fecha_pago date,
+  estatus character varying(20),
+  CONSTRAINT pagos_pkey PRIMARY KEY (id )
+)
+WITH (
+  OIDS=FALSE
+);
+
+CREATE TABLE usuario
+(
+  id serial NOT NULL,
+  login character varying(25),
+  clave character varying(25),
+  tipo character varying(25),
+  ip character varying(25),
+  mac character varying(25),
+  foto character varying(255),
+  estatus character varying(20),
+  CONSTRAINT usuario_pkey PRIMARY KEY (id)
+)
+WITH (
+  OIDS=FALSE
+);
+
+
+
+INSERT INTO public.usuario(
+             login, clave, tipo, ip, mac, estatus)
+    VALUES ('admin', 'admin', 'A', '192.168.0.1', 'cdcv121sds', 'ACTIVO');
+
+
+

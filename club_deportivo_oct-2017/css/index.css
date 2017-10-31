@@ -1,0 +1,414 @@
+*{
+	margin: 0px;
+	padding: 0px;
+	
+}
+body{
+   background: #fff;
+}
+
+header{
+	width: 100%;
+	height: 60px;
+	background:  #C0C0C0;
+	
+	
+}
+
+.logocheques{
+	width: 15%;
+	height: 60px;
+	
+	float: left;
+}
+.logocheques img{
+	width: 300px;
+	height: 50px;
+	margin: 5px;
+}
+.menu{
+	text-align: center;
+	width: 55%;
+	height:	60px;
+	position: relative; 
+	font-family: arial;
+	font-size: 12px;
+	float: right;
+	
+	
+}
+.menu ul{
+	margin-top: 20px;
+
+}
+.menu li{
+	height: 40px;
+	display: inline;
+	margin-right: 25px;
+	
+}
+
+
+.menu li a:hover{
+	border-bottom: 2px solid #000;
+	color: #fff;
+	-webkit-transition:all 0.5s ease;
+   -moz-transition:all 0.5s ease;
+   -o-transition:all 0.5s ease;
+   transition:all 0.5s ease;
+
+	
+	
+}
+a{
+	text-decoration: none;
+	color: #000;
+}
+.caja21{
+	width: 150px;
+	height: 30px;
+	border-radius: 10px;
+	font-size: 45px;
+	margin: 5px 10px 5px 230px;
+	float: left;
+}
+.caja21:hover{
+	
+	color: #fff;
+}
+
+#contenido{
+	width: 100%;
+	height: 500px;
+	
+	
+	
+}
+.letracabecera{
+    font-size: 18px;
+    text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 5px;
+    
+}
+
+.letracabecera_submenu{
+    font-size: 12px;
+    text-align: center;
+    font-family: 'Source Sans Pro', sans-serif;
+    padding: 5px;
+    
+}
+form{
+	width: 30%;
+	margin: 0px auto;
+	padding: 15px;    
+	border-radius: 15px;
+	background: #C0C0C0;
+	margin-top: 50px;
+	color: #CD5C5C;
+}
+formulario{
+	width: 60%;
+	margin: 0px auto;
+	padding: 15px;    
+	border-radius: 15px;
+	background: #C0C0C0;
+	margin-top: 50px;
+	color: #CD5C5C;
+}
+
+
+input, select{
+	margin-bottom: 15px;
+	width: 100%;
+	padding: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	
+}
+
+.contenido select{
+	margin-bottom: 15px;
+	width: 100%;
+	padding: 10px;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+	
+}
+input[type="submit"]{
+	margin-bottom: 10px;
+	background: #119955;
+	color: #fff;
+	border: none;
+    font-size: 20px;
+   font-family: 'Source Sans Pro', sans-serif;
+    border-radius: 5px;
+}
+input[type="submit"]:hover{
+	background: #696969;
+	cursor: pointer;
+    border-radius: 5px;
+    color: #000;
+}
+input[type="reset"]{
+	margin-bottom: 0;
+	background: #696969;
+	color: #fff;
+	border: none;
+    font-size: 20px;
+    font-family: 'Source Sans Pro', sans-serif;
+    border-radius: 5px;
+}
+input[type="reset"]:hover{
+	background: #4682B4;
+	cursor: pointer;
+    border-radius: 5px;
+    color: #000;
+}
+.forma_cheque{
+	width: 600px;
+	height: 300px;
+	margin: 0px auto;
+	border-radius: 10px;
+	border: solid 1px #000;
+	margin-top: 100px;
+	padding: 10px;
+	background: #fff;
+	font-size: 17px;
+	font-weight: bold;
+	line-height: 30px;
+}
+h6{
+	font-size: 13px;
+	margin-left: 40px;
+	margin-top: 30px;
+}
+.imprimircheque{
+	width: 600px;
+	height: 250px;
+	padding-top: 30px;
+}
+.imprimircheque span{
+	color: transparent;
+}
+.montoimprimir{
+	width: 100px;
+	height: 20px;
+	float: right;
+	margin-top: 16px;
+	margin-right: 18px;
+	font-size: 13px;
+	font-weight: bold;
+}
+.pagueseimprimir{
+	width: 500px;
+	height: 20px;
+	float: left;
+	margin-top: 35px;
+	margin-left: 95px;
+	font-size: 13px;
+	font-weight: bold;
+}
+.cantidadimprimir{
+	width: 500px;
+	height: 20px;
+	float: left;
+	margin-top: 2px;
+	margin-left: 105px;
+	font-size: 13px;
+	font-weight: bold;
+}
+.fechaimprimir{
+	width: 350px;
+	height: 20px;
+	float: left;
+	margin-top: 23px;
+	margin-left: 80px;
+	font-size: 13px;
+	font-weight: bold;
+	font-size: 13px;
+}
+.endosoimprimir{
+	width: 250px;
+	height: 20px;
+	float: right;
+	margin-right: 70px;
+	margin-top: 30px;
+	font-weight: bold;
+	font-size: 13px;
+}
+.caduca{
+	width: 250px;
+	height: 20px;
+	float: left;
+	margin-left: 90px;
+	margin-top: 15px;
+	font-size: 13px;
+	font-weight: bold;
+}
+.seccion img{
+	margin: 0px auto;
+}
+section{
+	width: 100%;
+	height: 800px;
+	
+
+}
+
+footer{
+	width: 100%;
+	height: 60px;
+	background: #C0C0C0;
+}
+.nombre_usuario{
+	font-size: 25px;
+	width: 10%;
+	height: 30px;
+	color: #fff;
+	float: right;
+	border: 1px #000 solid;
+	background: #94281f;
+	padding: 5px;
+	border-radius: 10px;
+	margin-top: 20px;
+	margin-right: 20px;
+
+}
+
+.datossistema{
+	width: 70%;
+	height: 60px;
+	float: left;
+	
+	padding: 10px;
+}
+.dsf{
+	color: #00000f;
+	font-size: 12px;
+	font-style: italic;
+}
+/* estilos para las tablas*/
+
+.zebra td, .zebra tr {
+    
+    border: 0px solid #000000;   
+	font-size: 17px;
+	text-align: right;
+	padding: 2px;
+
+}
+
+.zebra {
+    	
+    	width: 800px;   
+		margin: 0px auto; 
+		margin-top: 20px;
+		font-weight: bold;
+		
+	
+
+				 
+	
+}
+
+
+.zebra tbody tr:nth-child(even) {
+    background: #f5f5f5;
+    -webkit-box-shadow: 0 1px 0 rgba(255,255,255,.8) inset; 
+    -moz-box-shadow:0 1px 0 rgba(255,255,255,.8) inset;  
+    box-shadow: 0 1px 0 rgba(255,255,255,.8) inset;        
+}
+
+.zebra tr:hover {
+    background: #fbf8e9;
+    -o-transition: all 0.1s ease-in-out;
+    -webkit-transition: all 0.1s ease-in-out;
+    -moz-transition: all 0.1s ease-in-out;
+    -ms-transition: all 0.1s ease-in-out;
+    transition: all 0.1s ease-in-out;     
+}    
+.zebra thead{
+	background-color: #c2c2c2;
+}
+
+.zebra th {
+    text-align: center;
+    color: #94281f; 
+    border-bottom: 1px solid #ccc;
+    
+				
+    
+}
+
+.zebra th:first-child {
+    -moz-border-radius: 6px 0 0 0;
+    -webkit-border-radius: 6px 0 0 0;
+    border-radius: 6px 0 0 0;  
+}
+
+.zebra th:last-child {
+    -moz-border-radius: 0 6px 0 0;
+    -webkit-border-radius: 0 6px 0 0;
+    border-radius: 0 6px 0 0;
+}
+
+.zebra th:only-child{
+    -moz-border-radius: 6px 6px 0 0;
+    -webkit-border-radius: 6px 6px 0 0;
+    border-radius: 6px 6px 0 0;
+}
+
+.zebra tfoot td {
+    border-bottom: 0;
+    border-top: 1px solid #fff;
+    background-color: #f1f1f1;  
+}
+
+.zebra tfoot td:first-child {
+    -moz-border-radius: 0 0 0 6px;
+    -webkit-border-radius: 0 0 0 6px;
+    border-radius: 0 0 0 6px;
+}
+
+.zebra tfoot td:last-child {
+    -moz-border-radius: 0 0 6px 0;
+    -webkit-border-radius: 0 0 6px 0;
+    border-radius: 0 0 6px 0;
+}
+
+.zebra tfoot td:only-child{
+    -moz-border-radius: 0 0 6px 6px;
+    -webkit-border-radius: 0 0 6px 6px
+    border-radius: 0 0 6px 6px
+}
+button {
+ border: none;
+ margin-top: 5px;
+ background: #119955;
+ color: #f2f2f2;
+ padding: 10px;
+ font-size: 15px;
+ border-radius: 5px;
+ position: relative;
+ box-sizing: border-box;
+ transition: all 500ms ease;
+ width: 100%;
+}
+button:before {
+ content:'';
+ position: absolute;
+ top: 0px;
+ left: 0px;
+ width: 0px;
+ height: 42px;
+ background: rgba(255,255,255,0.3);
+ border-radius: 5px;
+ transition: all 2s ease;
+}
+button:hover:before {
+ width: 100%;
+}
